@@ -129,7 +129,7 @@ footer{border-top:1px solid var(--border);padding:20px 0 0;display:flex;justify-
 </header>
 
 <!-- Setup -->
-<div id="setup" class="setup">
+<div id="setup" class="setup" style="display:none">
   <div class="setup-icon">📡</div>
   <div class="setup-title">Подключите источник данных</div>
   <div class="setup-desc">Вставьте Raw URL вашего GitHub Gist.<br><code>https://gist.githubusercontent.com/USER/ID/raw/FILE.json</code></div>
@@ -233,7 +233,7 @@ function md(text){
     .replace(/^\d+\. (.+)$/gm,'<li>$1</li>');
 
   // Wrap consecutive <li> in <ul>
-  html=html.replace((<li>[\s\S]*?<\/li>\n?)+/g,m=>`<ul>${m}</ul>`);
+  html=html.replace(/(<li>[\s\S]*?<\/li>\n?)+/g,m=>`<ul>${m}</ul>`);
   // Wrap consecutive <tr> in <table>
   html=html.replace(/(<tr>[\s\S]*?<\/tr>\n?)+/g,m=>`<table>${m}</table>`);
   // Paragraphs: lines not already wrapped
