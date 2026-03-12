@@ -67,8 +67,6 @@ header{display:flex;align-items:center;justify-content:space-between;margin-bott
 .seg{display:flex;background:var(--surface);border-radius:var(--r2);padding:3px;gap:2px;box-shadow:var(--sh)}
 .seg-btn{background:transparent;border:none;padding:6px 14px;border-radius:8px;font-family:inherit;font-size:13px;font-weight:500;color:var(--t2);cursor:pointer;transition:all .15s;white-space:nowrap}
 .seg-btn.active{background:var(--blue);color:white}
-.fbtn{display:flex;align-items:center;gap:6px;background:var(--surface);border:none;border-radius:var(--r2);padding:8px 14px;font-family:inherit;font-size:13px;font-weight:500;color:var(--t2);cursor:pointer;box-shadow:var(--sh);transition:all .15s}
-.fbtn.on{background:var(--gbg);color:#1a7a32}
 .sw{margin-left:auto;position:relative}
 .sico{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--t3);pointer-events:none;font-size:13px}
 .sinp{background:var(--surface);border:none;border-radius:var(--r2);padding:8px 12px 8px 30px;font-family:inherit;font-size:13px;color:var(--text);outline:none;width:220px;box-shadow:var(--sh);transition:box-shadow .15s}
@@ -168,7 +166,6 @@ footer{border-top:1px solid var(--border);padding:20px 0 0;display:flex;justify-
       <button class="seg-btn" onclick="setSort('request_count',this)">Запросы</button>
       <button class="seg-btn" onclick="setSort('cards_count',this)">Карточки</button>
     </div>
-    <button class="fbtn on" id="fb" onclick="toggleFilter()">🧹 Без мусора</button>
     <div class="sw">
       <span class="sico">🔍</span>
       <input class="sinp" id="sq" type="text" placeholder="Поиск..." oninput="draw()">
@@ -190,20 +187,13 @@ footer{border-top:1px solid var(--border);padding:20px 0 0;display:flex;justify-
 
 <script>
 const KEY='trenz_gist_v2';
-let niches=[],sort='concurrency',filterOn=true;
+let niches=[],sort='concurrency';
 let asc={concurrency:true,request_count:false,cards_count:true};
 
-const JUNK=[
-  /мои покупки/i,/мои заказы/i,/покупки мои/i,/заказы мои/i,
-  /посмотреть (историю|заказ)/i,/история заказ/i,/^мой заказ/i,
-  /посылка отправить/i,/отправить посылку/i,/потерянн/i,
-  /квартира в москве/i,/^квартира$/i,/однокомнатная/i,
-  /авиабилет/i,/билет на самолет/i,
-  /рубли за отзыв/i,/за отзыв товар/i,
-  /^распродажа$/i,/^доставки$/i,/^доставка$/i,
-  /е аптека/i,/^аптека$/i,/покупки мои заказы/i,
-];
-const junk=p=>JUNK.some(r=>r.test(p));
+const BLACKLIST_URL='https://raw.githubusercontent.com/Igoroding/Trenz-Dashboard/main/blacklist.json';
+let BLACKLIST=new Set();
+fetch(BLACKLIST_URL).then(r=>r.json()).then(arr=>{BLACKLIST=new Set(arr.map(s=>s.toLowerCase().trim()));}).catch(()=>{});
+const junk=p=>BLACKLIST.has((p||'').toLowerCase().trim());
 const fmt=n=>Number(n).toLocaleString('ru');
 const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
@@ -305,7 +295,7 @@ function render(data){
 function draw(){
   const q=document.getElementById('sq').value.toLowerCase();
   let list=niches.filter(n=>{
-    if(filterOn&&junk(n.phrase||''))return false;
+    if(junk(n.phrase||''))return false;
     if(q&&!n.phrase?.toLowerCase().includes(q)&&!n.category?.toLowerCase().includes(q))return false;
     return true;
   });
@@ -346,13 +336,6 @@ function setSort(f,btn){
   draw();
 }
 
-function toggleFilter(){
-  filterOn=!filterOn;
-  const b=document.getElementById('fb');
-  b.classList.toggle('on',filterOn);
-  b.textContent=filterOn?'🧹 Без мусора':'⚠️ Все запросы';
-  draw();
-}
 
 function toggleAI(){
   document.getElementById('ab').classList.toggle('open');
