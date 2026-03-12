@@ -359,8 +359,10 @@ function toggleAI(){
   document.getElementById('chev').classList.toggle('open');
 }
 
-const saved=localStorage.getItem(KEY);
-if(saved){document.getElementById('gin').value=saved;load(saved);}
+const FIXED='https://gist.githubusercontent.com/Igoroding/114c03bcf98115a54fd6e72fecd28656/raw/trenz_data.json';
+const saved=localStorage.getItem(KEY)||FIXED;
+document.getElementById('gin').value=saved;
+load(saved);
 setInterval(()=>{const u=localStorage.getItem(KEY);if(u&&document.getElementById('main').style.display!=='none')load(u);},5*60*1000);
 </script>
 </body>
