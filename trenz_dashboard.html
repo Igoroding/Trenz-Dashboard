@@ -371,7 +371,24 @@ fetch(BLACKLIST_URL)
   .then(arr => { BLACKLIST = new Set(arr.map(s => s.toLowerCase().trim())); draw(); })
   .catch(() => {});
 
-const isJunk = p => BLACKLIST.has((p||'').toLowerCase().trim());
+// Точное совпадение с blacklist
+const isJunk = p => {
+  const s = (p||'').toLowerCase().trim();
+  if (BLACKLIST.has(s)) return true;
+  // Частичное совпадение для устойчивых мусорных паттернов
+  const JUNK_CONTAINS = [
+    'мои покупки', 'мои заказы', 'мой заказ', 'покупки мои', 'заказы мои',
+    'посылка', 'отправить посылку', 'трек номер', 'трек-номер',
+    'авиабилет', 'билет на самолет', 'билет на самолёт',
+    'квартира', 'аренда', 'снять комнату',
+    'рубли за отзыв', 'баллы за отзыв', 'за отзыв товар',
+    'личный кабинет', 'скачать приложение', 'статус заказа',
+    'возврат товар', 'вернуть товар', 'служба поддержки',
+    'как оформить', 'как заказать', 'как оплатить',
+    'пункт выдачи', 'пункт самовывоза',
+  ];
+  return JUNK_CONTAINS.some(k => s.includes(k));
+};
 const fmt = n => Number(n).toLocaleString('ru');
 const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
