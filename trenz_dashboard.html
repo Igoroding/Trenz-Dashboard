@@ -460,13 +460,10 @@ function render(data) {
   const noBrand = cl.filter(n => !n.is_brand).length;
 
   document.getElementById('kpi').innerHTML = `
-    <div class="kpi"><div class="kpi-label">Ниш</div><div class="kpi-val">${cl.length}</div></div>
+    <div class="kpi"><div class="kpi-label">Трендов</div><div class="kpi-val">${cl.length}</div></div>
     <div class="kpi"><div class="kpi-label">Пустых ≤5</div><div class="kpi-val kv-g">${empty}</div></div>
     <div class="kpi"><div class="kpi-label">Свободных ≤100</div><div class="kpi-val kv-b">${free}</div></div>
     <div class="kpi"><div class="kpi-label">Без брендов</div><div class="kpi-val kv-g">${noBrand}</div></div>
-    <div class="kpi"><div class="kpi-label">Мин. конкур.</div><div class="kpi-val kv-a">${minC===999?'—':minC.toFixed(4)}</div></div>
-    <div class="kpi"><div class="kpi-label">Макс. запросов</div><div class="kpi-val kv-a">${fmt(maxR)}</div></div>
-    <div class="kpi"><div class="kpi-label">Период</div><div class="kpi-val" style="font-size:15px;color:var(--t2)">${data.week_date||'—'}</div></div>
   `;
 
   if (data.analysis) {
