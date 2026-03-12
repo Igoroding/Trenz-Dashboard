@@ -4,27 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trenz</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
 :root {
-  --bg:       #fafafa;
+  --bg:       #f2f2f2;
   --white:    #ffffff;
-  --border:   #e8e8e8;
-  --border2:  #d0d0d0;
-  --text:     #111111;
-  --t2:       #555555;
-  --t3:       #999999;
-  --accent:   #111111;
+  --border:   #e0e0e0;
+  --text:     #0f0f0f;
+  --t2:       #555;
+  --t3:       #aaa;
+  --blue:     #2563eb;
   --green:    #16a34a;
   --green-bg: #f0fdf4;
-  --blue:     #2563eb;
   --blue-bg:  #eff6ff;
   --amber:    #d97706;
   --amber-bg: #fffbeb;
   --red:      #dc2626;
   --red-bg:   #fef2f2;
+  --purple:   #7c3aed;
+  --purple-bg:#faf5ff;
 }
+
 body {
   font-family: 'Manrope', -apple-system, sans-serif;
   background: var(--bg);
@@ -33,98 +35,120 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
-.page { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
+
+.page { max-width: 1200px; margin: 0 auto; padding: 0 32px 80px; }
 
 /* ── HEADER ── */
 .header {
   display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 48px;
-  padding-bottom: 24px;
+  padding: 36px 0 32px;
   border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
 }
-.logo { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+
+.logo {
+  font-size: 42px; font-weight: 800;
+  letter-spacing: -2px; line-height: 1;
+  color: var(--text);
+}
 .logo-z { color: var(--blue); }
-.ts { font-size: 12px; color: var(--t3); display: flex; align-items: center; gap: 6px; }
-.ts-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+.header-right { display: flex; align-items: center; gap: 8px; }
+.ts-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+.ts-label { font-size: 13px; color: var(--t3); font-weight: 500; }
 
 /* ── KPI ── */
 .kpi-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 }
 .kpi {
   background: var(--white);
+  border-radius: 14px;
+  padding: 22px 24px;
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 16px 18px;
 }
-.kpi-label { font-size: 11px; font-weight: 600; color: var(--t3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-.kpi-val { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; line-height: 1; }
+.kpi-label {
+  font-size: 11px; font-weight: 700; color: var(--t3);
+  text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px;
+}
+.kpi-val {
+  font-size: 36px; font-weight: 800;
+  letter-spacing: -1.5px; line-height: 1;
+}
 .kv-g { color: var(--green); }
 .kv-b { color: var(--blue); }
-.kv-a { color: var(--amber); }
+.kv-d { color: var(--text); }
 
 /* ── AI BLOCK ── */
 .ai-block {
   background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  margin-bottom: 36px;
+  border-radius: 16px;
+  margin-bottom: 32px;
   overflow: hidden;
 }
-.ai-toggle {
+
+.ai-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 24px;
-  cursor: pointer;
-  user-select: none;
-  border-bottom: 1px solid transparent;
-  transition: background 0.1s;
+  padding: 20px 28px; cursor: pointer;
+  transition: background 0.1s; user-select: none;
 }
-.ai-toggle:hover { background: #f5f5f5; }
-.ai-toggle.open { border-bottom-color: var(--border); }
-.ai-left { display: flex; align-items: center; gap: 12px; }
-.ai-icon {
-  width: 30px; height: 30px; border-radius: 7px;
+.ai-header:hover { background: #fafafa; }
+.ai-header-left { display: flex; align-items: center; gap: 14px; }
+.ai-dot {
+  width: 34px; height: 34px; border-radius: 10px;
   background: var(--text); color: white;
   display: flex; align-items: center; justify-content: center;
-  font-size: 14px; font-weight: 700; flex-shrink: 0;
+  font-size: 16px; flex-shrink: 0;
 }
-.ai-name { font-size: 14px; font-weight: 600; }
-.ai-sub { font-size: 11px; color: var(--t3); margin-top: 1px; }
-.ai-chevron { font-size: 12px; color: var(--t3); transition: transform 0.2s; }
-.ai-chevron.open { transform: rotate(180deg); }
+.ai-title { font-size: 15px; font-weight: 700; }
+.ai-sub { font-size: 11px; color: var(--t3); margin-top: 2px; font-weight: 500; }
+.ai-toggle {
+  width: 30px; height: 30px; border-radius: 8px;
+  background: var(--bg); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--t3); transition: transform 0.2s;
+}
+.ai-toggle.open { transform: rotate(180deg); }
 
-.ai-content {
+.ai-divider { height: 1px; background: var(--border); margin: 0 28px; display: none; }
+.ai-divider.open { display: block; }
+
+.ai-body {
   max-height: 0; overflow: hidden;
   transition: max-height 0.4s ease, padding 0.3s;
-  padding: 0 28px;
+  padding: 0 32px;
 }
-.ai-content.open { max-height: 5000px; padding: 28px; }
+.ai-body.open { max-height: 6000px; padding: 32px; }
 
 /* ── MARKDOWN ── */
-.md { color: var(--t2); line-height: 1.75; }
-.md h1 { font-size: 18px; font-weight: 700; color: var(--text); margin: 0 0 16px; }
+.md { font-size: 14px; line-height: 1.8; color: var(--t2); }
+.md h1 { font-size: 20px; font-weight: 800; color: var(--text); margin: 0 0 20px; letter-spacing: -0.5px; }
 .md h2 {
-  font-size: 15px; font-weight: 700; color: var(--text);
-  margin: 28px 0 12px;
-  padding-top: 20px;
-  border-top: 1px solid var(--border);
+  font-size: 16px; font-weight: 800; color: var(--text);
+  margin: 32px 0 14px; letter-spacing: -0.3px;
+  padding-top: 24px; border-top: 1px solid var(--border);
 }
 .md h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
-.md h3 { font-size: 13px; font-weight: 700; color: var(--text); margin: 18px 0 8px; text-transform: uppercase; letter-spacing: 0.4px; }
+.md h3 {
+  font-size: 13px; font-weight: 700; color: var(--text);
+  margin: 20px 0 8px;
+}
 .md p { margin-bottom: 12px; }
 .md strong { font-weight: 700; color: var(--text); }
-.md hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
-.md ul { list-style: none; padding: 0; margin-bottom: 14px; }
-.md ul li { padding: 3px 0 3px 16px; position: relative; }
-.md ul li::before { content: '—'; position: absolute; left: 0; color: var(--t3); font-weight: 400; }
+.md em { font-style: italic; }
+.md hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.md ul { list-style: none; padding: 0; margin: 0 0 14px; }
+.md ul li { padding: 4px 0 4px 18px; position: relative; }
+.md ul li::before { content: '—'; position: absolute; left: 0; color: var(--t3); }
 .md ol { padding-left: 20px; margin-bottom: 14px; }
-.md ol li { padding: 2px 0; }
-.md table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; }
-.md th { text-align: left; padding: 8px 12px; font-size: 11px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 2px solid var(--border); }
-.md td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.md ol li { padding: 3px 0; }
+.md table { width: 100%; border-collapse: collapse; margin: 14px 0 18px; font-size: 13px; }
+.md th { text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 2px solid var(--border); background: var(--bg); }
+.md td { padding: 9px 14px; border-bottom: 1px solid var(--border); }
 .md tr:last-child td { border-bottom: none; }
 
 /* ── TOOLBAR ── */
@@ -132,171 +156,143 @@ body {
   display: flex; align-items: center; gap: 8px;
   margin-bottom: 20px; flex-wrap: wrap;
 }
-.btn-group {
-  display: flex;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+.btn-grp {
+  display: flex; background: var(--white);
+  border: 1px solid var(--border); border-radius: 10px;
   overflow: hidden;
-  background: var(--white);
 }
-.btn-group button {
+.btn-grp button {
   background: transparent; border: none; border-right: 1px solid var(--border);
-  padding: 7px 14px;
-  font-family: inherit; font-size: 12px; font-weight: 600;
-  color: var(--t2); cursor: pointer;
-  transition: background 0.1s, color 0.1s;
-  white-space: nowrap;
+  padding: 9px 18px; font-family: inherit;
+  font-size: 13px; font-weight: 600; color: var(--t2);
+  cursor: pointer; transition: background 0.1s, color 0.1s; white-space: nowrap;
 }
-.btn-group button:last-child { border-right: none; }
-.btn-group button:hover { background: #f5f5f5; }
-.btn-group button.on { background: var(--text); color: white; }
+.btn-grp button:last-child { border-right: none; }
+.btn-grp button:hover { background: var(--bg); }
+.btn-grp button.on { background: var(--text); color: white; }
 
-.search-box {
-  margin-left: auto; position: relative;
-}
-.search-box input {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 7px 12px 7px 32px;
+.search-wrap { margin-left: auto; position: relative; }
+.search-wrap input {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; padding: 9px 14px 9px 36px;
   font-family: inherit; font-size: 13px; color: var(--text);
-  outline: none; width: 200px;
-  transition: border-color 0.15s;
+  outline: none; width: 220px; transition: border-color 0.15s;
 }
-.search-box input:focus { border-color: var(--text); }
-.search-box input::placeholder { color: var(--t3); }
-.search-ico { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--t3); font-size: 14px; pointer-events: none; }
+.search-wrap input:focus { border-color: var(--blue); }
+.search-wrap input::placeholder { color: var(--t3); }
+.search-ico { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--t3); font-size: 14px; pointer-events: none; }
 
-/* ── CARDS ── */
+/* ── GRID ── */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 12px;
 }
 
 .card {
   background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 18px 20px;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  border-radius: 14px; padding: 20px 22px;
+  transition: box-shadow 0.15s, border-color 0.15s;
   animation: up 0.25s ease backwards;
 }
-.card:hover {
-  border-color: var(--border2);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-}
-@keyframes up { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); border-color: #ccc; }
+@keyframes up { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
 
 .card-top {
   display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 10px;
-}
-.card-idx { font-size: 11px; font-weight: 600; color: var(--t3); }
-.tags { display: flex; gap: 4px; flex-wrap: wrap; }
-.tag {
-  font-size: 10px; font-weight: 700;
-  padding: 2px 7px; border-radius: 4px;
-  letter-spacing: 0.3px; text-transform: uppercase;
-}
-.tag-empty  { background: var(--green-bg); color: var(--green); }
-.tag-free   { background: var(--blue-bg); color: var(--blue); }
-.tag-low    { background: var(--green-bg); color: var(--green); }
-.tag-mid    { background: var(--amber-bg); color: var(--amber); }
-.tag-hi     { background: var(--red-bg); color: var(--red); }
-.tag-brand  { background: #fdf4ff; color: #7c3aed; }
-
-.card-phrase {
-  font-size: 15px; font-weight: 700;
-  color: var(--text); line-height: 1.3;
-  margin-bottom: 3px;
-  letter-spacing: -0.2px;
-}
-.card-cat {
-  font-size: 11px; font-weight: 500; color: var(--t3);
-  text-transform: uppercase; letter-spacing: 0.4px;
-  margin-bottom: 14px;
-}
-
-.card-metrics {
-  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;
   margin-bottom: 12px;
 }
-.metric { background: var(--bg); border-radius: 7px; padding: 9px 10px; }
-.m-lbl { font-size: 9px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
-.m-val { font-size: 14px; font-weight: 700; color: var(--text); line-height: 1; }
+.card-num { font-size: 12px; font-weight: 700; color: var(--t3); }
+.tags { display: flex; gap: 5px; flex-wrap: wrap; }
+.tag {
+  font-size: 10px; font-weight: 700; padding: 3px 8px;
+  border-radius: 5px; letter-spacing: 0.3px; text-transform: uppercase;
+}
+.tag-empty  { background: var(--green-bg); color: var(--green); }
+.tag-free   { background: var(--blue-bg);  color: var(--blue); }
+.tag-low    { background: var(--green-bg); color: var(--green); }
+.tag-mid    { background: var(--amber-bg); color: var(--amber); }
+.tag-hi     { background: var(--red-bg);   color: var(--red); }
+.tag-brand  { background: var(--purple-bg);color: var(--purple); }
+
+.card-phrase {
+  font-size: 16px; font-weight: 800; color: var(--text);
+  line-height: 1.25; margin-bottom: 4px; letter-spacing: -0.3px;
+}
+.card-cat {
+  font-size: 11px; font-weight: 600; color: var(--t3);
+  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px;
+}
+
+.metrics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.metric { background: var(--bg); border-radius: 8px; padding: 10px 12px; }
+.m-lbl { font-size: 9px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.m-val { font-size: 15px; font-weight: 800; color: var(--text); line-height: 1; letter-spacing: -0.3px; }
 .m-val.green { color: var(--green); }
 .m-val.blue  { color: var(--blue); }
 
-.comp-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
-.comp-fill { height: 100%; border-radius: 2px; transition: width 0.5s ease; }
+.bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
 
 /* ── SETUP ── */
 .setup {
-  max-width: 500px; margin: 80px auto;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 14px; padding: 48px 36px; text-align: center;
+  max-width: 520px; margin: 80px auto;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 18px; padding: 52px 40px; text-align: center;
 }
-.setup-ico { font-size: 32px; margin-bottom: 16px; }
-.setup-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.3px; }
-.setup-desc { font-size: 13px; color: var(--t2); line-height: 1.6; margin-bottom: 24px; }
-.setup-desc code { font-size: 11px; background: var(--bg); padding: 2px 6px; border-radius: 4px; color: var(--blue); font-family: monospace; }
+.setup-ico { font-size: 36px; margin-bottom: 20px; }
+.setup-title { font-size: 22px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px; }
+.setup-desc { font-size: 13px; color: var(--t2); line-height: 1.7; margin-bottom: 28px; }
+.setup-desc code { font-size: 11px; background: var(--bg); padding: 2px 7px; border-radius: 4px; color: var(--blue); font-family: monospace; }
 .input-row { display: flex; gap: 8px; }
 .gin {
-  flex: 1; background: var(--bg); border: 1px solid var(--border2);
-  border-radius: 8px; padding: 10px 13px;
+  flex: 1; background: var(--bg); border: 1.5px solid var(--border);
+  border-radius: 10px; padding: 11px 14px;
   font-family: inherit; font-size: 13px; color: var(--text);
   outline: none; transition: border-color 0.15s;
 }
-.gin:focus { border-color: var(--text); }
+.gin:focus { border-color: var(--blue); }
 .gin::placeholder { color: var(--t3); }
-.btn-primary {
+.btn-p {
   background: var(--text); color: white; border: none;
-  border-radius: 8px; padding: 10px 20px;
+  border-radius: 10px; padding: 11px 22px;
   font-family: inherit; font-size: 13px; font-weight: 700;
   cursor: pointer; white-space: nowrap; transition: opacity 0.15s;
 }
-.btn-primary:hover { opacity: 0.8; }
-.err { background: var(--red-bg); border-radius: 7px; padding: 10px 14px; color: var(--red); font-size: 12px; margin-top: 10px; text-align: left; }
+.btn-p:hover { opacity: 0.8; }
+.err { background: var(--red-bg); border-radius: 8px; padding: 10px 14px; color: var(--red); font-size: 12px; margin-top: 12px; text-align: left; }
 
 /* ── LOADING ── */
-.loading { text-align: center; padding: 100px 20px; }
-.spin {
-  width: 24px; height: 24px; margin: 0 auto 14px;
-  border: 2px solid var(--border); border-top-color: var(--text);
-  border-radius: 50%; animation: spin 0.7s linear infinite;
-}
+.loading { text-align: center; padding: 120px 20px; }
+.spin { width: 24px; height: 24px; margin: 0 auto 14px; border: 2.5px solid var(--border); border-top-color: var(--text); border-radius: 50%; animation: spin 0.7s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
-.spin-txt { font-size: 13px; color: var(--t3); }
+.spin-txt { font-size: 13px; color: var(--t3); font-weight: 500; }
 
-.empty { grid-column: 1/-1; text-align: center; padding: 60px; color: var(--t3); font-style: italic; }
+.empty { grid-column: 1/-1; text-align: center; padding: 60px; color: var(--t3); }
 
-footer {
-  margin-top: 60px; padding-top: 20px;
-  border-top: 1px solid var(--border);
-  display: flex; justify-content: space-between;
-  font-size: 11px; color: var(--t3); flex-wrap: wrap; gap: 6px;
-}
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 11px; color: var(--t3); font-weight: 600; flex-wrap: wrap; gap: 6px; letter-spacing: 0.3px; text-transform: uppercase; }
 </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- Header -->
   <div class="header">
     <div class="logo">tren<span class="logo-z">z</span></div>
-    <div class="ts"><div class="ts-dot"></div><span id="ts">–</span></div>
+    <div class="header-right">
+      <div class="ts-dot"></div>
+      <span class="ts-label" id="ts">—</span>
+    </div>
   </div>
 
   <!-- Setup -->
   <div id="setup" class="setup" style="display:none">
     <div class="setup-ico">📡</div>
-    <div class="setup-title">Подключите источник данных</div>
+    <div class="setup-title">Источник данных</div>
     <div class="setup-desc">Вставьте Raw URL вашего GitHub Gist<br><code>https://gist.githubusercontent.com/USER/ID/raw/FILE.json</code></div>
     <div class="input-row">
       <input class="gin" id="gin" type="text" placeholder="https://gist.githubusercontent.com/...">
-      <button class="btn-primary" onclick="saveLoad()">Загрузить</button>
+      <button class="btn-p" onclick="saveLoad()">Загрузить</button>
     </div>
     <div id="errc" class="err" style="display:none"></div>
   </div>
@@ -304,51 +300,46 @@ footer {
   <!-- Main -->
   <div id="main" style="display:none">
 
-    <!-- KPI -->
     <div class="kpi-row" id="kpi"></div>
 
-    <!-- AI -->
     <div class="ai-block" id="aib" style="display:none">
-      <div class="ai-toggle" id="aitog" onclick="toggleAI()">
-        <div class="ai-left">
-          <div class="ai-icon">✦</div>
+      <div class="ai-header" onclick="toggleAI()">
+        <div class="ai-header-left">
+          <div class="ai-dot">✦</div>
           <div>
-            <div class="ai-name">AI‑анализ трендов</div>
+            <div class="ai-title">AI‑анализ трендов</div>
             <div class="ai-sub">Wildberries · Claude Sonnet</div>
           </div>
         </div>
-        <span class="ai-chevron open" id="chev">▼</span>
+        <div class="ai-toggle open" id="chev">▼</div>
       </div>
-      <div class="ai-content open" id="ab"></div>
+      <div class="ai-divider open" id="div"></div>
+      <div class="ai-body open" id="ab"></div>
     </div>
 
-    <!-- Toolbar -->
     <div class="toolbar">
-      <div class="btn-group">
+      <div class="btn-grp">
         <button class="on" onclick="setSort('concurrency',this)">Конкуренция</button>
         <button onclick="setSort('request_count',this)">Запросы</button>
         <button onclick="setSort('cards_count',this)">Карточки</button>
       </div>
-      <div class="btn-group">
+      <div class="btn-grp">
         <button class="on" id="b-all" onclick="setBrand('all',this)">Все</button>
         <button id="b-no" onclick="setBrand('no_brand',this)">Без брендов</button>
         <button id="b-yes" onclick="setBrand('brand',this)">Бренды</button>
       </div>
-      <div class="search-box">
+      <div class="search-wrap">
         <span class="search-ico">🔍</span>
         <input type="text" id="sq" placeholder="Поиск..." oninput="draw()">
       </div>
     </div>
 
-    <!-- Grid -->
     <div class="grid" id="grid"></div>
-
   </div>
 
-  <!-- Loading -->
   <div id="loading" class="loading" style="display:none">
     <div class="spin"></div>
-    <div class="spin-txt">Загрузка...</div>
+    <div class="spin-txt">Загрузка данных...</div>
   </div>
 
   <footer>
@@ -371,41 +362,39 @@ fetch(BLACKLIST_URL + '?t=' + Date.now())
   .then(arr => { BLACKLIST = new Set(arr.map(s => s.toLowerCase().trim())); draw(); })
   .catch(() => {});
 
-// Точное совпадение с blacklist
 const isJunk = p => {
   const s = (p||'').toLowerCase().trim();
   if (BLACKLIST.has(s)) return true;
-  // Частичное совпадение для устойчивых мусорных паттернов
-  const JUNK_CONTAINS = [
-    'мои покупки', 'мои заказы', 'мой заказ', 'покупки мои', 'заказы мои',
-    'посылка', 'отправить посылку', 'трек номер', 'трек-номер',
-    'авиабилет', 'билет на самолет', 'билет на самолёт',
-    'квартира', 'аренда', 'снять комнату',
-    'рубли за отзыв', 'баллы за отзыв', 'за отзыв товар',
-    'личный кабинет', 'скачать приложение', 'статус заказа',
-    'возврат товар', 'вернуть товар', 'служба поддержки',
-    'как оформить', 'как заказать', 'как оплатить',
-    'пункт выдачи', 'пункт самовывоза',
+  const CONTAINS = [
+    'мои покупки','мои заказы','мой заказ','покупки мои','заказы мои',
+    'посылка','авиабилет','билет на самолет','билет на самолёт',
+    'квартира','аренда квартир','снять комнату',
+    'рубли за отзыв','баллы за отзыв','за отзыв товар',
+    'личный кабинет','скачать приложение','статус заказа',
+    'возврат товар','вернуть товар','служба поддержки',
+    'как оформить','как заказать','как оплатить',
+    'пункт выдачи','пункт самовывоза',
   ];
-  return JUNK_CONTAINS.some(k => s.includes(k));
+  return CONTAINS.some(k => s.includes(k));
 };
+
 const fmt = n => Number(n).toLocaleString('ru');
 const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
-// Markdown renderer
 function md(text) {
   if (!text) return '';
   let h = text
     .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
-    .replace(/^---+$/gm, '<hr>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/^[*\-] (.+)$/gm, '<li>$1</li>')
-    .replace(/^\d+\. (.+)$/gm, '<li>$1</li>')
-    .replace(/^\|(.+)\|$/gm, (m, r) => '<tr>' + r.split('|').map(c=>`<td>${c.trim()}</td>`).join('') + '</tr>')
-    .replace(/^<tr><td>[-: |]+<\/td><\/tr>$/gm, '');
+    .replace(/^### (.+)$/gm,'<h3>$1</h3>')
+    .replace(/^## (.+)$/gm,'<h2>$1</h2>')
+    .replace(/^# (.+)$/gm,'<h1>$1</h1>')
+    .replace(/^---+$/gm,'<hr>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/^[*\-] (.+)$/gm,'<li>$1</li>')
+    .replace(/^\d+\. (.+)$/gm,'<li>$1</li>')
+    .replace(/^\|(.+)\|$/gm, (m,r) => '<tr>'+r.split('|').map(c=>`<td>${c.trim()}</td>`).join('')+'</tr>')
+    .replace(/^<tr><td>[-: |]+<\/td><\/tr>$/gm,'');
   h = h.replace(/(<li>[\s\S]*?<\/li>\n?)+/g, m => `<ul>${m}</ul>`);
   h = h.replace(/(<tr>[\s\S]*?<\/tr>\n?)+/g, m => `<table>${m}</table>`);
   h = h.split('\n').map(line => {
@@ -437,7 +426,7 @@ async function load(url) {
     document.getElementById('setup').style.display = 'block';
     const el = document.getElementById('errc');
     el.style.display = 'block';
-    el.textContent = 'Ошибка загрузки: ' + e.message;
+    el.textContent = 'Ошибка: ' + e.message;
   }
 }
 
@@ -453,16 +442,14 @@ function render(data) {
   }
 
   const cl = niches.filter(n => !isJunk(n.phrase||''));
-  const minC = cl.length ? Math.min(...cl.map(n => parseFloat(n.concurrency||999))) : 0;
-  const maxR = cl.length ? Math.max(...cl.map(n => parseInt(n.request_count||0))) : 0;
   const empty = cl.filter(n => parseInt(n.cards_count||0) <= 5).length;
   const free  = cl.filter(n => { const c = parseInt(n.cards_count||0); return c > 5 && c <= 100; }).length;
   const noBrand = cl.filter(n => !n.is_brand).length;
 
   document.getElementById('kpi').innerHTML = `
-    <div class="kpi"><div class="kpi-label">Трендов</div><div class="kpi-val">${cl.length}</div></div>
-    <div class="kpi"><div class="kpi-label">Пустых ≤5</div><div class="kpi-val kv-g">${empty}</div></div>
-    <div class="kpi"><div class="kpi-label">Свободных ≤100</div><div class="kpi-val kv-b">${free}</div></div>
+    <div class="kpi"><div class="kpi-label">Трендов</div><div class="kpi-val kv-d">${cl.length}</div></div>
+    <div class="kpi"><div class="kpi-label">Пустых ≤ 5</div><div class="kpi-val kv-g">${empty}</div></div>
+    <div class="kpi"><div class="kpi-label">Свободных ≤ 100</div><div class="kpi-val kv-b">${free}</div></div>
     <div class="kpi"><div class="kpi-label">Без брендов</div><div class="kpi-val kv-g">${noBrand}</div></div>
   `;
 
@@ -500,10 +487,9 @@ function draw() {
     const compLbl = c < 0.001 ? 'Низкая'  : c < 0.01 ? 'Средняя' : 'Высокая';
     const barCol  = c < 0.001 ? 'var(--green)' : c < 0.01 ? 'var(--amber)' : 'var(--red)';
     const cardCol = cards <= 5 ? 'green' : cards <= 100 ? 'blue' : '';
-    const delay   = Math.min(i * 0.018, 0.3);
-    return `<div class="card" style="animation-delay:${delay}s">
+    return `<div class="card" style="animation-delay:${Math.min(i*0.015,0.3)}s">
       <div class="card-top">
-        <span class="card-idx">${String(i+1).padStart(2,'0')}</span>
+        <span class="card-num">${String(i+1).padStart(2,'0')}</span>
         <div class="tags">
           ${cards <= 5 ? '<span class="tag tag-empty">Пустая</span>' : cards <= 100 ? '<span class="tag tag-free">Свободная</span>' : ''}
           <span class="tag ${compCls}">${compLbl}</span>
@@ -512,51 +498,34 @@ function draw() {
       </div>
       <div class="card-phrase">${esc(n.phrase||'')}</div>
       <div class="card-cat">${esc(n.category||'—')}</div>
-      <div class="card-metrics">
-        <div class="metric">
-          <div class="m-lbl">Запросов</div>
-          <div class="m-val">${fmt(req)}</div>
-        </div>
-        <div class="metric">
-          <div class="m-lbl">Карточек</div>
-          <div class="m-val ${cardCol}">${fmt(cards)}</div>
-        </div>
-        <div class="metric">
-          <div class="m-lbl">Конкур.</div>
-          <div class="m-val">${c.toFixed(4)}</div>
-        </div>
+      <div class="metrics">
+        <div class="metric"><div class="m-lbl">Запросов</div><div class="m-val">${fmt(req)}</div></div>
+        <div class="metric"><div class="m-lbl">Карточек</div><div class="m-val ${cardCol}">${fmt(cards)}</div></div>
+        <div class="metric"><div class="m-lbl">Конкур.</div><div class="m-val">${c.toFixed(4)}</div></div>
       </div>
-      <div class="comp-bar">
-        <div class="comp-fill" style="width:${pct}%;background:${barCol}"></div>
-      </div>
+      <div class="bar"><div class="bar-fill" style="width:${pct}%;background:${barCol}"></div></div>
     </div>`;
   }).join('');
 }
 
 function setSort(f, btn) {
   if (sort === f) asc[f] = !asc[f]; else sort = f;
-  btn.closest('.btn-group').querySelectorAll('button').forEach(b => b.classList.remove('on'));
+  btn.closest('.btn-grp').querySelectorAll('button').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
   draw();
 }
 
 function setBrand(val, btn) {
   brandFilter = val;
-  document.querySelectorAll('#b-all,#b-no,#b-yes').forEach(b => b.classList.remove('on'));
+  ['b-all','b-no','b-yes'].forEach(id => document.getElementById(id).classList.remove('on'));
   btn.classList.add('on');
   draw();
 }
 
 function toggleAI() {
-  const tog = document.getElementById('aitog');
-  const content = document.getElementById('ab');
-  const chev = document.getElementById('chev');
-  tog.classList.toggle('open');
-  content.classList.toggle('open');
-  chev.classList.toggle('open');
+  ['ab','chev','div'].forEach(id => document.getElementById(id).classList.toggle('open'));
 }
 
-// Boot
 const saved = localStorage.getItem(KEY) || FIXED;
 document.getElementById('gin').value = saved;
 load(saved);
