@@ -366,7 +366,7 @@ let niches = [], sort = 'concurrency', brandFilter = 'all';
 let asc = { concurrency: true, request_count: false, cards_count: true };
 let BLACKLIST = new Set();
 
-fetch(BLACKLIST_URL)
+fetch(BLACKLIST_URL + '?t=' + Date.now())
   .then(r => r.json())
   .then(arr => { BLACKLIST = new Set(arr.map(s => s.toLowerCase().trim())); draw(); })
   .catch(() => {});
