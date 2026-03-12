@@ -25,7 +25,7 @@ header{display:flex;align-items:center;justify-content:space-between;margin-bott
 .dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
 
 /* Stats */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:28px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:28px}
 .stat{background:var(--surface);border-radius:var(--r2);padding:18px 20px;box-shadow:var(--sh)}
 .stat-l{font-size:11px;font-weight:500;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
 .stat-v{font-size:26px;font-weight:600;letter-spacing:-.5px;line-height:1}
@@ -274,13 +274,15 @@ function render(data){
   const cl=niches.filter(n=>!junk(n.phrase||''));
   const minC=cl.length?Math.min(...cl.map(n=>parseFloat(n.concurrency||999))):0;
   const maxR=cl.length?Math.max(...cl.map(n=>parseInt(n.request_count||0))):0;
-  const empty=cl.filter(n=>parseInt(n.cards_count)===0).length;
+  const empty=cl.filter(n=>parseInt(n.cards_count||0)<=5).length;
+  const free=cl.filter(n=>{const c=parseInt(n.cards_count||0);return c>5&&c<=100;}).length;
 
   document.getElementById('stats').innerHTML=`
     <div class="stat"><div class="stat-l">Чистых ниш</div><div class="stat-v c-blue">${cl.length}</div></div>
     <div class="stat"><div class="stat-l">Мин. конкуренция</div><div class="stat-v c-green">${minC===999?'—':minC.toFixed(4)}</div></div>
     <div class="stat"><div class="stat-l">Макс. запросов</div><div class="stat-v c-orange">${fmt(maxR)}</div></div>
-    <div class="stat"><div class="stat-l">Пустых ниш</div><div class="stat-v c-green">${empty}</div></div>
+    <div class="stat"><div class="stat-l">Пустых ниш (≤5)</div><div class="stat-v c-green">${empty}</div></div>
+    <div class="stat"><div class="stat-l">Свободных ниш (≤100)</div><div class="stat-v c-blue">${free}</div></div>
     <div class="stat"><div class="stat-l">Период</div><div class="stat-v" style="font-size:18px">${data.week_date||'—'}</div></div>
   `;
 
@@ -319,7 +321,8 @@ function draw(){
       <div class="cat">${esc(n.category||'без категории')}</div>
       <div class="metrics">
         <div class="metric"><div class="m-l">Запросов / мес</div><div class="m-v">${fmt(req)}</div></div>
-        <div class="metric"><div class="m-l">Карточек</div><div class="m-v ${cards===0?'zero':''}">${fmt(cards)}</div></div>
+        <div class="metric"><div class="m-l">Карточек</div><div class="m-v">${fmt(cards)}</div></div>
+        <div class="metric"><div class="m-l">Тип</div><div class="m-v" style="font-size:13px;font-weight:600;color:${cards<=5?'var(--green)':cards<=100?'var(--blue)':'var(--t2)'}">${cards<=5?'Пустая':cards<=100?'Свободная':'Занятая'}</div></div>
       </div>
       <div class="bar-wrap">
         <div class="bar-labels"><span>Конкуренция</span><span>${c.toFixed(4)}</span></div>
