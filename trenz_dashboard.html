@@ -166,6 +166,11 @@ footer{border-top:1px solid var(--border);padding:20px 0 0;display:flex;justify-
       <button class="seg-btn" onclick="setSort('request_count',this)">Запросы</button>
       <button class="seg-btn" onclick="setSort('cards_count',this)">Карточки</button>
     </div>
+    <div class="seg">
+      <button class="seg-btn active" id="b-all" onclick="setBrand('all',this)">Все</button>
+      <button class="seg-btn" id="b-no" onclick="setBrand('no_brand',this)">Без брендов</button>
+      <button class="seg-btn" id="b-yes" onclick="setBrand('brand',this)">Только бренды</button>
+    </div>
     <div class="sw">
       <span class="sico">🔍</span>
       <input class="sinp" id="sq" type="text" placeholder="Поиск..." oninput="draw()">
@@ -187,7 +192,7 @@ footer{border-top:1px solid var(--border);padding:20px 0 0;display:flex;justify-
 
 <script>
 const KEY='trenz_gist_v2';
-let niches=[],sort='concurrency';
+let niches=[],sort='concurrency',brandFilter='all'; // all | no_brand | brand
 let asc={concurrency:true,request_count:false,cards_count:true};
 
 const BLACKLIST_URL='https://raw.githubusercontent.com/Igoroding/Trenz-Dashboard/main/blacklist.json';
@@ -283,6 +288,8 @@ function render(data){
     <div class="stat"><div class="stat-l">Макс. запросов</div><div class="stat-v c-orange">${fmt(maxR)}</div></div>
     <div class="stat"><div class="stat-l">Пустых ниш (≤5)</div><div class="stat-v c-green">${empty}</div></div>
     <div class="stat"><div class="stat-l">Свободных ниш (≤100)</div><div class="stat-v c-blue">${free}</div></div>
+    <div class="stat"><div class="stat-l">Без брендов</div><div class="stat-v c-green">${cl.filter(n=>!n.is_brand).length}</div></div>
+    <div class="stat"><div class="stat-l">Брендовых</div><div class="stat-v" style="color:var(--orange)">${cl.filter(n=>n.is_brand).length}</div></div>
     <div class="stat"><div class="stat-l">Период</div><div class="stat-v" style="font-size:18px">${data.week_date||'—'}</div></div>
   `;
 
@@ -298,6 +305,8 @@ function draw(){
   const q=document.getElementById('sq').value.toLowerCase();
   let list=niches.filter(n=>{
     if(junk(n.phrase||''))return false;
+    if(brandFilter==='no_brand' && n.is_brand)return false;
+    if(brandFilter==='brand' && !n.is_brand)return false;
     if(q&&!n.phrase?.toLowerCase().includes(q)&&!n.category?.toLowerCase().includes(q))return false;
     return true;
   });
@@ -318,7 +327,10 @@ function draw(){
     return`<div class="card" style="animation-delay:${Math.min(i*.025,.4)}s">
       <div class="card-top"><span class="card-num">#${i+1}</span><span class="cbadge ${cls}">${lbl}</span></div>
       <div class="phrase">${esc(n.phrase||'')}</div>
-      <div class="cat">${esc(n.category||'без категории')}</div>
+      <div class="cat" style="display:flex;align-items:center;gap:8px">
+        <span>${esc(n.category||'без категории')}</span>
+        ${n.is_brand?'<span style="font-size:10px;font-weight:600;background:#fff3e0;color:#a05a00;padding:2px 7px;border-radius:5px;text-transform:uppercase;letter-spacing:.3px">Бренд</span>':''}
+      </div>
       <div class="metrics">
         <div class="metric"><div class="m-l">Запросов / мес</div><div class="m-v">${fmt(req)}</div></div>
         <div class="metric"><div class="m-l">Карточек</div><div class="m-v">${fmt(cards)}</div></div>
