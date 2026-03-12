@@ -3,137 +3,460 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trenz</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Trenz — Market Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+
 :root{
-  --bg:#f5f5f7;--surface:#fff;--s2:#f5f5f7;
-  --border:rgba(0,0,0,.08);--text:#1d1d1f;--t2:#6e6e73;--t3:#aeaeb2;
-  --blue:#0071e3;--green:#30d158;--gbg:#e5f8eb;--orange:#ff9f0a;--obg:#fff3e0;
-  --red:#ff3b30;--rbg:#ffebea;
-  --sh:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
-  --sh2:0 4px 16px rgba(0,0,0,.08);--r:16px;--r2:10px;
+  --bg:#0c0c0c;
+  --s1:#141414;
+  --s2:#1c1c1c;
+  --s3:#242424;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);
+  --text:#f0ede6;
+  --t2:#9a9690;
+  --t3:#5a5754;
+  --gold:#c8a86b;
+  --gold-dim:rgba(200,168,107,0.12);
+  --green:#4ade80;
+  --green-dim:rgba(74,222,128,0.1);
+  --blue:#60a5fa;
+  --blue-dim:rgba(96,165,250,0.1);
+  --orange:#fb923c;
+  --orange-dim:rgba(251,146,60,0.1);
+  --red:#f87171;
+  --red-dim:rgba(248,113,113,0.1);
 }
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5}
-.wrap{max-width:1120px;margin:0 auto;padding:32px 24px}
 
-/* Header */
-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px;flex-wrap:wrap;gap:12px}
-.logo{font-size:22px;font-weight:600;letter-spacing:-.5px}.logo span{color:var(--blue)}
-.badge{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t2);background:var(--surface);padding:6px 12px;border-radius:20px;box-shadow:var(--sh)}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:14px;
+  line-height:1.6;
+  min-height:100vh;
+}
 
-/* Stats */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:28px}
-.stat{background:var(--surface);border-radius:var(--r2);padding:18px 20px;box-shadow:var(--sh)}
-.stat-l{font-size:11px;font-weight:500;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-.stat-v{font-size:26px;font-weight:600;letter-spacing:-.5px;line-height:1}
-.c-blue{color:var(--blue)}.c-green{color:var(--green)}.c-orange{color:var(--orange)}
+.wrap{max-width:1200px;margin:0 auto;padding:40px 32px}
 
-/* AI Analysis */
-.ai-block{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:28px;overflow:hidden}
-.ai-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;cursor:pointer;transition:background .1s;border-bottom:1px solid var(--border)}
-.ai-head:hover{background:var(--s2)}
-.ai-head-left{display:flex;align-items:center;gap:10px}
-.ai-icon{width:28px;height:28px;background:linear-gradient(135deg,#0071e3,#34aadc);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
-.ai-title{font-size:15px;font-weight:600}
-.ai-subtitle{font-size:12px;color:var(--t3);margin-top:1px}
-.chevron{font-size:11px;color:var(--t3);transition:transform .2s}
-.chevron.open{transform:rotate(180deg)}
-.ai-body{padding:0;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease}
-.ai-body.open{padding:24px 28px;max-height:4000px}
+/* ─── HEADER ─── */
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-bottom:28px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:40px;
+  flex-wrap:wrap;gap:16px;
+}
 
-/* Markdown styles */
-.md h1,.md h2{font-size:16px;font-weight:600;margin:20px 0 10px;color:var(--text)}
-.md h1:first-child,.md h2:first-child{margin-top:0}
-.md h3{font-size:14px;font-weight:600;margin:16px 0 8px;color:var(--text)}
-.md p{margin-bottom:12px;color:var(--t2);line-height:1.7}
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:24px;font-weight:600;
+  letter-spacing:-.3px;color:var(--text);
+}
+.logo em{color:var(--gold);font-style:normal}
+
+.header-right{display:flex;align-items:center;gap:16px}
+
+.live-pill{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:500;color:var(--t2);
+  font-family:'DM Mono',monospace;
+  letter-spacing:.3px;
+}
+.pulse{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 0 0 rgba(74,222,128,.4);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(74,222,128,.4)}
+  70%{box-shadow:0 0 0 6px rgba(74,222,128,0)}
+  100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}
+}
+
+/* ─── STATS ─── */
+.kpi-row{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+  margin-bottom:36px;
+}
+.kpi{
+  background:var(--s1);
+  padding:20px 22px;
+  transition:background .15s;
+}
+.kpi:hover{background:var(--s2)}
+.kpi-label{
+  font-size:10px;font-weight:600;
+  color:var(--t3);
+  text-transform:uppercase;letter-spacing:.8px;
+  margin-bottom:8px;
+}
+.kpi-value{
+  font-family:'Playfair Display',serif;
+  font-size:28px;font-weight:700;
+  line-height:1;letter-spacing:-.5px;
+}
+.kv-gold{color:var(--gold)}
+.kv-green{color:var(--green)}
+.kv-blue{color:var(--blue)}
+.kv-orange{color:var(--orange)}
+
+/* ─── AI ANALYSIS ─── */
+.analysis-wrap{
+  margin-bottom:40px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  background:var(--s1);
+}
+
+.analysis-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 28px;
+  cursor:pointer;
+  border-bottom:1px solid var(--border);
+  transition:background .15s;
+  user-select:none;
+}
+.analysis-header:hover{background:var(--s2)}
+
+.analysis-header-left{display:flex;align-items:center;gap:14px}
+
+.ai-badge{
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--gold) 0%,#e8c97e 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+}
+
+.analysis-meta{}
+.analysis-title{
+  font-family:'Playfair Display',serif;
+  font-size:16px;font-weight:600;
+  color:var(--text);
+}
+.analysis-sub{font-size:11px;color:var(--t3);margin-top:1px;letter-spacing:.3px}
+
+.toggle-btn{
+  width:28px;height:28px;border-radius:6px;
+  background:var(--s3);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:var(--t2);
+  transition:transform .25s,background .15s;flex-shrink:0;
+}
+.toggle-btn.open{transform:rotate(180deg)}
+
+.analysis-body{
+  padding:0;max-height:0;overflow:hidden;
+  transition:max-height .4s cubic-bezier(.4,0,.2,1),padding .3s;
+}
+.analysis-body.open{padding:32px 36px;max-height:5000px}
+
+/* ─── MARKDOWN ─── */
+.md{color:var(--t2);line-height:1.8}
+
+.md h1{
+  font-family:'Playfair Display',serif;
+  font-size:22px;font-weight:700;
+  color:var(--text);
+  margin:0 0 20px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--border);
+}
+.md h2{
+  font-family:'Playfair Display',serif;
+  font-size:18px;font-weight:600;
+  color:var(--text);
+  margin:28px 0 14px;
+}
+.md h3{
+  font-size:14px;font-weight:600;
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  margin:22px 0 10px;
+}
+.md p{margin-bottom:14px;color:var(--t2)}
 .md strong{font-weight:600;color:var(--text)}
-.md hr{border:none;border-top:1px solid var(--border);margin:20px 0}
-.md ul,.md ol{padding-left:20px;margin-bottom:12px}
-.md li{margin-bottom:4px;color:var(--t2);line-height:1.6}
-.md table{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:13px}
-.md th{background:var(--s2);padding:8px 12px;text-align:left;font-weight:600;font-size:12px;color:var(--t2);text-transform:uppercase;letter-spacing:.3px;border-bottom:1px solid var(--border)}
-.md td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--t2)}
+.md hr{
+  border:none;border-top:1px solid var(--border);
+  margin:24px 0;
+}
+.md ul{padding-left:0;margin-bottom:16px;list-style:none}
+.md ul li{
+  color:var(--t2);
+  padding:4px 0 4px 20px;
+  position:relative;
+}
+.md ul li::before{
+  content:'–';
+  position:absolute;left:0;
+  color:var(--gold);font-weight:600;
+}
+.md ol{padding-left:22px;margin-bottom:16px}
+.md ol li{color:var(--t2);padding:3px 0}
+
+.md table{
+  width:100%;border-collapse:collapse;
+  margin:16px 0 20px;font-size:13px;
+  background:var(--s2);border-radius:8px;overflow:hidden;
+}
+.md th{
+  background:var(--s3);padding:10px 14px;text-align:left;
+  font-size:11px;font-weight:600;color:var(--t3);
+  text-transform:uppercase;letter-spacing:.5px;
+  border-bottom:1px solid var(--border);
+}
+.md td{
+  padding:9px 14px;
+  border-bottom:1px solid var(--border);
+  color:var(--t2);
+}
 .md tr:last-child td{border-bottom:none}
-.md blockquote{border-left:3px solid var(--blue);padding:8px 16px;margin:12px 0;background:rgba(0,113,227,.04);border-radius:0 8px 8px 0}
-.md blockquote p{color:var(--t2);margin:0}
-.niche-section{background:var(--s2);border-radius:var(--r2);padding:16px 18px;margin-bottom:12px}
-.niche-section h3{margin-top:0;margin-bottom:8px;font-size:14px}
 
-/* Toolbar */
-.toolbar{display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-.seg{display:flex;background:var(--surface);border-radius:var(--r2);padding:3px;gap:2px;box-shadow:var(--sh)}
-.seg-btn{background:transparent;border:none;padding:6px 14px;border-radius:8px;font-family:inherit;font-size:13px;font-weight:500;color:var(--t2);cursor:pointer;transition:all .15s;white-space:nowrap}
-.seg-btn.active{background:var(--blue);color:white}
-.sw{margin-left:auto;position:relative}
-.sico{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--t3);pointer-events:none;font-size:13px}
-.sinp{background:var(--surface);border:none;border-radius:var(--r2);padding:8px 12px 8px 30px;font-family:inherit;font-size:13px;color:var(--text);outline:none;width:220px;box-shadow:var(--sh);transition:box-shadow .15s}
-.sinp:focus{box-shadow:0 0 0 3px rgba(0,113,227,.2),var(--sh)}
-.sinp::placeholder{color:var(--t3)}
+/* ─── TOOLBAR ─── */
+.toolbar{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:20px;flex-wrap:wrap;
+}
 
-/* Cards */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;margin-bottom:32px}
-.card{background:var(--surface);border-radius:var(--r);padding:20px;box-shadow:var(--sh);transition:transform .15s,box-shadow .15s;animation:up .3s ease backwards}
-.card:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
-@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
-.card-num{font-size:11px;font-weight:600;color:var(--t3)}
-.cbadge{font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px}
-.cbadge.low{background:var(--gbg);color:#1a7a32}
-.cbadge.mid{background:var(--obg);color:#a05a00}
-.cbadge.hi{background:var(--rbg);color:#c0392b}
-.phrase{font-size:16px;font-weight:600;letter-spacing:-.3px;margin-bottom:4px;line-height:1.3}
-.cat{font-size:12px;color:var(--blue);font-weight:500;margin-bottom:16px;text-transform:uppercase;letter-spacing:.3px}
-.metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.metric{background:var(--s2);border-radius:10px;padding:10px 12px}
-.m-l{font-size:10px;font-weight:500;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
-.m-v{font-size:17px;font-weight:600;letter-spacing:-.3px}
-.m-v.zero{color:var(--green)}
-.bar-wrap{margin-top:14px}
-.bar-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--t3);margin-bottom:5px}
-.bar{height:4px;background:var(--s2);border-radius:2px;overflow:hidden}
-.bar-fill{height:100%;border-radius:2px;transition:width .5s ease}
+.pill-group{
+  display:flex;
+  background:var(--s1);
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:3px;gap:2px;
+}
+.pill{
+  background:transparent;border:none;
+  padding:6px 16px;border-radius:7px;
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;font-weight:500;
+  color:var(--t2);cursor:pointer;
+  transition:all .15s;white-space:nowrap;
+}
+.pill.active{background:var(--s3);color:var(--text);border:1px solid var(--border2)}
 
-/* Setup */
-.setup{background:var(--surface);border-radius:var(--r);padding:48px 32px;text-align:center;box-shadow:var(--sh);max-width:560px;margin:60px auto}
-.setup-icon{font-size:40px;margin-bottom:16px}
-.setup-title{font-size:20px;font-weight:600;letter-spacing:-.3px;margin-bottom:8px}
-.setup-desc{font-size:14px;color:var(--t2);line-height:1.6;margin-bottom:24px}
-.setup-desc code{font-size:12px;background:var(--s2);padding:2px 6px;border-radius:4px;color:var(--blue)}
+.search-wrap{margin-left:auto;position:relative}
+.search-ico{
+  position:absolute;left:11px;top:50%;transform:translateY(-50%);
+  color:var(--t3);font-size:13px;pointer-events:none;
+}
+.search{
+  background:var(--s1);border:1px solid var(--border);
+  border-radius:9px;padding:8px 12px 8px 32px;
+  font-family:'DM Sans',sans-serif;font-size:13px;
+  color:var(--text);outline:none;width:220px;
+  transition:border-color .15s;
+}
+.search:focus{border-color:var(--gold)}
+.search::placeholder{color:var(--t3)}
+
+/* ─── CARDS ─── */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:12px;margin-bottom:60px;
+}
+
+.card{
+  background:var(--s1);
+  border:1px solid var(--border);
+  border-radius:14px;padding:22px;
+  transition:border-color .2s,background .2s;
+  animation:fadeUp .35s ease backwards;
+  cursor:default;
+}
+.card:hover{
+  border-color:var(--border2);
+  background:var(--s2);
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.card-header{
+  display:flex;align-items:flex-start;
+  justify-content:space-between;
+  margin-bottom:14px;
+}
+.card-num{
+  font-family:'DM Mono',monospace;
+  font-size:10px;font-weight:500;
+  color:var(--t3);letter-spacing:.5px;
+}
+
+.badges{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+
+.badge{
+  font-size:10px;font-weight:600;
+  padding:3px 8px;border-radius:5px;
+  letter-spacing:.3px;text-transform:uppercase;
+}
+.badge-low{background:var(--green-dim);color:var(--green)}
+.badge-mid{background:var(--orange-dim);color:var(--orange)}
+.badge-hi{background:var(--red-dim);color:var(--red)}
+.badge-brand{background:var(--gold-dim);color:var(--gold)}
+.badge-empty{background:var(--green-dim);color:var(--green)}
+.badge-free{background:var(--blue-dim);color:var(--blue)}
+
+.card-phrase{
+  font-family:'Playfair Display',serif;
+  font-size:17px;font-weight:600;
+  color:var(--text);line-height:1.3;
+  margin-bottom:5px;
+}
+.card-cat{
+  font-size:11px;font-weight:500;color:var(--t3);
+  text-transform:uppercase;letter-spacing:.5px;
+  margin-bottom:18px;
+}
+
+.metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.metric{
+  background:var(--s2);border-radius:8px;
+  padding:10px 12px;
+}
+.m-label{
+  font-size:9px;font-weight:600;color:var(--t3);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;
+}
+.m-value{
+  font-family:'DM Mono',monospace;
+  font-size:15px;font-weight:500;color:var(--text);
+}
+
+.comp-row{margin-top:14px}
+.comp-meta{
+  display:flex;justify-content:space-between;
+  font-size:10px;color:var(--t3);
+  font-family:'DM Mono',monospace;
+  margin-bottom:6px;
+}
+.bar-track{
+  height:3px;background:var(--s3);
+  border-radius:2px;overflow:hidden;
+}
+.bar-fill{
+  height:100%;border-radius:2px;
+  transition:width .6s cubic-bezier(.4,0,.2,1);
+}
+
+/* ─── SETUP ─── */
+.setup{
+  max-width:540px;margin:80px auto;
+  background:var(--s1);border:1px solid var(--border);
+  border-radius:16px;padding:52px 40px;text-align:center;
+}
+.setup-icon{font-size:36px;margin-bottom:20px}
+.setup-title{
+  font-family:'Playfair Display',serif;
+  font-size:22px;font-weight:600;
+  margin-bottom:10px;
+}
+.setup-desc{
+  font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:28px;
+}
+.setup-desc code{
+  font-family:'DM Mono',monospace;
+  font-size:11px;background:var(--s2);
+  padding:2px 7px;border-radius:4px;color:var(--gold);
+}
 .input-row{display:flex;gap:8px}
-.gin{flex:1;background:var(--s2);border:1.5px solid var(--border);border-radius:var(--r2);padding:10px 14px;font-family:inherit;font-size:13px;color:var(--text);outline:none;transition:border-color .15s}
-.gin:focus{border-color:var(--blue)}
-.btnp{background:var(--blue);color:white;border:none;border-radius:var(--r2);padding:10px 20px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:opacity .15s}
-.btnp:hover{opacity:.85}
+.gin{
+  flex:1;background:var(--s2);
+  border:1px solid var(--border2);
+  border-radius:9px;padding:11px 14px;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;color:var(--text);
+  outline:none;transition:border-color .15s;
+}
+.gin:focus{border-color:var(--gold)}
+.gin::placeholder{color:var(--t3)}
+.btn-gold{
+  background:var(--gold);color:#0c0c0c;
+  border:none;border-radius:9px;
+  padding:11px 22px;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:700;
+  cursor:pointer;white-space:nowrap;
+  transition:opacity .15s;
+}
+.btn-gold:hover{opacity:.85}
+.errc{
+  background:var(--red-dim);border:1px solid rgba(248,113,113,.2);
+  border-radius:8px;padding:12px 16px;
+  color:var(--red);font-size:12px;
+  margin-top:12px;text-align:left;
+}
 
-/* Loading */
-.loading{text-align:center;padding:80px 20px}
-.spinner{width:28px;height:28px;border:2.5px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px}
+/* ─── LOADING ─── */
+.loading{text-align:center;padding:100px 20px}
+.spinner{
+  width:28px;height:28px;
+  border:2px solid var(--border2);
+  border-top-color:var(--gold);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:0 auto 16px;
+}
 @keyframes spin{to{transform:rotate(360deg)}}
-.ltxt{color:var(--t2)}
-.errc{background:var(--rbg);border-radius:var(--r2);padding:14px 18px;color:var(--red);font-size:13px;margin-top:12px;text-align:left}
-.empty{text-align:center;padding:60px;color:var(--t3);grid-column:1/-1}
-footer{border-top:1px solid var(--border);padding:20px 0 0;display:flex;justify-content:space-between;font-size:12px;color:var(--t3);flex-wrap:wrap;gap:8px}
+.ltxt{color:var(--t3);font-size:13px;letter-spacing:.3px}
+
+.empty{
+  text-align:center;padding:60px;
+  color:var(--t3);grid-column:1/-1;
+  font-style:italic;
+}
+
+/* ─── FOOTER ─── */
+footer{
+  border-top:1px solid var(--border);
+  padding:24px 0 0;
+  display:flex;justify-content:space-between;
+  font-size:11px;color:var(--t3);
+  font-family:'DM Mono',monospace;
+  flex-wrap:wrap;gap:8px;
+  letter-spacing:.3px;
+}
 </style>
 </head>
 <body>
 <div class="wrap">
 
+<!-- Header -->
 <header>
-  <div class="logo">Trenz<span>.</span></div>
-  <div class="badge"><div class="dot"></div><span id="ts">–</span></div>
+  <div class="logo">Trenz<em>.</em></div>
+  <div class="header-right">
+    <div class="live-pill">
+      <div class="pulse"></div>
+      <span id="ts">—</span>
+    </div>
+  </div>
 </header>
 
 <!-- Setup -->
 <div id="setup" class="setup" style="display:none">
   <div class="setup-icon">📡</div>
-  <div class="setup-title">Подключите источник данных</div>
-  <div class="setup-desc">Вставьте Raw URL вашего GitHub Gist.<br><code>https://gist.githubusercontent.com/USER/ID/raw/FILE.json</code></div>
+  <div class="setup-title">Источник данных</div>
+  <div class="setup-desc">
+    Вставьте Raw URL вашего GitHub Gist<br>
+    <code>https://gist.githubusercontent.com/USER/ID/raw/FILE.json</code>
+  </div>
   <div class="input-row">
     <input class="gin" id="gin" type="text" placeholder="https://gist.githubusercontent.com/...">
-    <button class="btnp" onclick="saveLoad()">Загрузить</button>
+    <button class="btn-gold" onclick="saveLoad()">Загрузить</button>
   </div>
   <div id="errc" class="errc" style="display:none"></div>
 </div>
@@ -141,105 +464,100 @@ footer{border-top:1px solid var(--border);padding:20px 0 0;display:flex;justify-
 <!-- Main -->
 <div id="main" style="display:none">
 
-  <!-- Stats -->
-  <div class="stats" id="stats"></div>
+  <!-- KPI -->
+  <div class="kpi-row" id="kpi"></div>
 
-  <!-- AI Analysis — TOP -->
-  <div class="ai-block" id="aib" style="display:none">
-    <div class="ai-head" onclick="toggleAI()">
-      <div class="ai-head-left">
-        <div class="ai-icon">✦</div>
-        <div>
-          <div class="ai-title">AI‑анализ трендов</div>
-          <div class="ai-subtitle">Wildberries · Claude Sonnet</div>
+  <!-- AI Analysis -->
+  <div class="analysis-wrap" id="aib" style="display:none">
+    <div class="analysis-header" onclick="toggleAI()">
+      <div class="analysis-header-left">
+        <div class="ai-badge">✦</div>
+        <div class="analysis-meta">
+          <div class="analysis-title">AI‑анализ трендов</div>
+          <div class="analysis-sub">WILDBERRIES · CLAUDE SONNET</div>
         </div>
       </div>
-      <span class="chevron open" id="chev">▼</span>
+      <div class="toggle-btn open" id="chev">▼</div>
     </div>
-    <div class="ai-body open" id="ab"></div>
+    <div class="analysis-body open" id="ab"></div>
   </div>
 
-  <!-- Cards -->
+  <!-- Toolbar -->
   <div class="toolbar">
-    <div class="seg">
-      <button class="seg-btn active" onclick="setSort('concurrency',this)">Конкуренция</button>
-      <button class="seg-btn" onclick="setSort('request_count',this)">Запросы</button>
-      <button class="seg-btn" onclick="setSort('cards_count',this)">Карточки</button>
+    <div class="pill-group">
+      <button class="pill active" onclick="setSort('concurrency',this)">Конкуренция</button>
+      <button class="pill" onclick="setSort('request_count',this)">Запросы</button>
+      <button class="pill" onclick="setSort('cards_count',this)">Карточки</button>
     </div>
-    <div class="seg">
-      <button class="seg-btn active" id="b-all" onclick="setBrand('all',this)">Все</button>
-      <button class="seg-btn" id="b-no" onclick="setBrand('no_brand',this)">Без брендов</button>
-      <button class="seg-btn" id="b-yes" onclick="setBrand('brand',this)">Только бренды</button>
+    <div class="pill-group">
+      <button class="pill active" id="b-all" onclick="setBrand('all',this)">Все</button>
+      <button class="pill" id="b-no" onclick="setBrand('no_brand',this)">Без брендов</button>
+      <button class="pill" id="b-yes" onclick="setBrand('brand',this)">Бренды</button>
     </div>
-    <div class="sw">
-      <span class="sico">🔍</span>
-      <input class="sinp" id="sq" type="text" placeholder="Поиск..." oninput="draw()">
+    <div class="search-wrap">
+      <span class="search-ico">⌕</span>
+      <input class="search" id="sq" type="text" placeholder="Поиск..." oninput="draw()">
     </div>
   </div>
+
+  <!-- Grid -->
   <div class="grid" id="grid"></div>
+
 </div>
 
+<!-- Loading -->
 <div id="loading" class="loading" style="display:none">
   <div class="spinner"></div>
-  <div class="ltxt">Загрузка...</div>
+  <div class="ltxt">Загрузка данных</div>
 </div>
 
 <footer>
-  <span>Trenz — WB Market Intelligence</span>
+  <span>TRENZ — WB MARKET INTELLIGENCE</span>
   <span id="fu"></span>
 </footer>
 </div>
 
 <script>
 const KEY='trenz_gist_v2';
-let niches=[],sort='concurrency',brandFilter='all'; // all | no_brand | brand
+let niches=[],sort='concurrency',brandFilter='all';
 let asc={concurrency:true,request_count:false,cards_count:true};
 
 const BLACKLIST_URL='https://raw.githubusercontent.com/Igoroding/Trenz-Dashboard/main/blacklist.json';
 let BLACKLIST=new Set();
-fetch(BLACKLIST_URL).then(r=>r.json()).then(arr=>{BLACKLIST=new Set(arr.map(s=>s.toLowerCase().trim()));}).catch(()=>{});
+fetch(BLACKLIST_URL).then(r=>r.json()).then(arr=>{
+  BLACKLIST=new Set(arr.map(s=>s.toLowerCase().trim()));
+  draw();
+}).catch(()=>{});
+
 const junk=p=>BLACKLIST.has((p||'').toLowerCase().trim());
 const fmt=n=>Number(n).toLocaleString('ru');
 const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
-// Simple markdown → HTML renderer
 function md(text){
   if(!text)return'';
-  let html=text
-    // Escape HTML
+  let h=text
     .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    // Headers
     .replace(/^### (.+)$/gm,'<h3>$1</h3>')
     .replace(/^## (.+)$/gm,'<h2>$1</h2>')
     .replace(/^# (.+)$/gm,'<h1>$1</h1>')
-    // HR
     .replace(/^---+$/gm,'<hr>')
-    // Bold
     .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-    // Tables (basic)
+    .replace(/^[\*\-] (.+)$/gm,'<li>$1</li>')
+    .replace(/^\d+\. (.+)$/gm,'<li>$1</li>')
     .replace(/^\|(.+)\|$/gm,(m,r)=>{
       const cells=r.split('|').map(c=>c.trim());
       return'<tr>'+cells.map(c=>`<td>${c}</td>`).join('')+'</tr>';
     })
-    .replace(/^<tr><td>[-: |]+<\/td><\/tr>$/gm,'') // remove separator rows
-    // Bullet lists
-    .replace(/^[\*\-] (.+)$/gm,'<li>$1</li>')
-    // Numbered lists
-    .replace(/^\d+\. (.+)$/gm,'<li>$1</li>');
-
-  // Wrap consecutive <li> in <ul>
-  html=html.replace(/(<li>[\s\S]*?<\/li>\n?)+/g,m=>`<ul>${m}</ul>`);
-  // Wrap consecutive <tr> in <table>
-  html=html.replace(/(<tr>[\s\S]*?<\/tr>\n?)+/g,m=>`<table>${m}</table>`);
-  // Paragraphs: lines not already wrapped
-  html=html.split('\n').map(line=>{
+    .replace(/^<tr><td>[-: |]+<\/td><\/tr>$/gm,'');
+  h=h.replace(/(<li>[\s\S]*?<\/li>\n?)+/g,m=>`<ul>${m}</ul>`);
+  h=h.replace(/(<tr>[\s\S]*?<\/tr>\n?)+/g,m=>`<table>${m}</table>`);
+  h=h.split('\n').map(line=>{
     const t=line.trim();
     if(!t)return'';
-    if(/^<(h[123]|ul|ol|li|table|tr|td|th|hr|blockquote)/.test(t))return t;
+    if(/^<(h[123]|ul|ol|table|tr|td|th|hr)/.test(t))return t;
     return`<p>${t}</p>`;
   }).join('\n');
-
-  return html;
+  return h;
 }
 
 function saveLoad(){
@@ -273,7 +591,8 @@ function render(data){
 
   if(data.updated_at){
     const d=new Date(data.updated_at);
-    document.getElementById('ts').textContent=d.toLocaleString('ru',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+    document.getElementById('ts').textContent=
+      d.toLocaleString('ru',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}).toUpperCase();
   }
 
   const cl=niches.filter(n=>!junk(n.phrase||''));
@@ -281,16 +600,16 @@ function render(data){
   const maxR=cl.length?Math.max(...cl.map(n=>parseInt(n.request_count||0))):0;
   const empty=cl.filter(n=>parseInt(n.cards_count||0)<=5).length;
   const free=cl.filter(n=>{const c=parseInt(n.cards_count||0);return c>5&&c<=100;}).length;
+  const noBrand=cl.filter(n=>!n.is_brand).length;
 
-  document.getElementById('stats').innerHTML=`
-    <div class="stat"><div class="stat-l">Чистых ниш</div><div class="stat-v c-blue">${cl.length}</div></div>
-    <div class="stat"><div class="stat-l">Мин. конкуренция</div><div class="stat-v c-green">${minC===999?'—':minC.toFixed(4)}</div></div>
-    <div class="stat"><div class="stat-l">Макс. запросов</div><div class="stat-v c-orange">${fmt(maxR)}</div></div>
-    <div class="stat"><div class="stat-l">Пустых ниш (≤5)</div><div class="stat-v c-green">${empty}</div></div>
-    <div class="stat"><div class="stat-l">Свободных ниш (≤100)</div><div class="stat-v c-blue">${free}</div></div>
-    <div class="stat"><div class="stat-l">Без брендов</div><div class="stat-v c-green">${cl.filter(n=>!n.is_brand).length}</div></div>
-    <div class="stat"><div class="stat-l">Брендовых</div><div class="stat-v" style="color:var(--orange)">${cl.filter(n=>n.is_brand).length}</div></div>
-    <div class="stat"><div class="stat-l">Период</div><div class="stat-v" style="font-size:18px">${data.week_date||'—'}</div></div>
+  document.getElementById('kpi').innerHTML=`
+    <div class="kpi"><div class="kpi-label">Ниш найдено</div><div class="kpi-value kv-gold">${cl.length}</div></div>
+    <div class="kpi"><div class="kpi-label">Пустых (≤5)</div><div class="kpi-value kv-green">${empty}</div></div>
+    <div class="kpi"><div class="kpi-label">Свободных (≤100)</div><div class="kpi-value kv-blue">${free}</div></div>
+    <div class="kpi"><div class="kpi-label">Без брендов</div><div class="kpi-value kv-green">${noBrand}</div></div>
+    <div class="kpi"><div class="kpi-label">Мин. конкуренция</div><div class="kpi-value kv-gold">${minC===999?'—':minC.toFixed(4)}</div></div>
+    <div class="kpi"><div class="kpi-label">Макс. запросов</div><div class="kpi-value kv-orange">${fmt(maxR)}</div></div>
+    <div class="kpi"><div class="kpi-label">Период</div><div class="kpi-value" style="font-size:16px;color:var(--t2)">${data.week_date||'—'}</div></div>
   `;
 
   if(data.analysis){
@@ -305,8 +624,8 @@ function draw(){
   const q=document.getElementById('sq').value.toLowerCase();
   let list=niches.filter(n=>{
     if(junk(n.phrase||''))return false;
-    if(brandFilter==='no_brand' && n.is_brand)return false;
-    if(brandFilter==='brand' && !n.is_brand)return false;
+    if(brandFilter==='no_brand'&&n.is_brand)return false;
+    if(brandFilter==='brand'&&!n.is_brand)return false;
     if(q&&!n.phrase?.toLowerCase().includes(q)&&!n.category?.toLowerCase().includes(q))return false;
     return true;
   });
@@ -314,31 +633,51 @@ function draw(){
     const av=parseFloat(a[sort]||0),bv=parseFloat(b[sort]||0);
     return asc[sort]?av-bv:bv-av;
   });
+
   const g=document.getElementById('grid');
   if(!list.length){g.innerHTML='<div class="empty">Ничего не найдено</div>';return;}
+
   g.innerHTML=list.map((n,i)=>{
     const c=parseFloat(n.concurrency||0);
     const cards=parseInt(n.cards_count||0);
     const req=parseInt(n.request_count||0);
-    const pct=Math.min(c*600,100);
-    const cls=c<0.001?'low':c<0.01?'mid':'hi';
-    const lbl=c<0.001?'Низкая':c<0.01?'Средняя':'Высокая';
-    const col=c<0.001?'var(--green)':c<0.01?'var(--orange)':'var(--red)';
-    return`<div class="card" style="animation-delay:${Math.min(i*.025,.4)}s">
-      <div class="card-top"><span class="card-num">#${i+1}</span><span class="cbadge ${cls}">${lbl}</span></div>
-      <div class="phrase">${esc(n.phrase||'')}</div>
-      <div class="cat" style="display:flex;align-items:center;gap:8px">
-        <span>${esc(n.category||'без категории')}</span>
-        ${n.is_brand?'<span style="font-size:10px;font-weight:600;background:#fff3e0;color:#a05a00;padding:2px 7px;border-radius:5px;text-transform:uppercase;letter-spacing:.3px">Бренд</span>':''}
+    const pct=Math.min(c*500,100);
+    const compCls=c<0.001?'badge-low':c<0.01?'badge-mid':'badge-hi';
+    const compLbl=c<0.001?'Низкая':c<0.01?'Средняя':'Высокая';
+    const barCol=c<0.001?'var(--green)':c<0.01?'var(--orange)':'var(--red)';
+    const nicheLbl=cards<=5?'Пустая':cards<=100?'Свободная':'';
+    const nicheCls=cards<=5?'badge-empty':cards<=100?'badge-free':'';
+    const delay=Math.min(i*.02,.35);
+
+    return`<div class="card" style="animation-delay:${delay}s">
+      <div class="card-header">
+        <span class="card-num">${String(i+1).padStart(2,'0')}</span>
+        <div class="badges">
+          ${nicheLbl?`<span class="badge ${nicheCls}">${nicheLbl}</span>`:''}
+          <span class="badge ${compCls}">${compLbl}</span>
+          ${n.is_brand?'<span class="badge badge-brand">Бренд</span>':''}
+        </div>
       </div>
+      <div class="card-phrase">${esc(n.phrase||'')}</div>
+      <div class="card-cat">${esc(n.category||'без категории')}</div>
       <div class="metrics">
-        <div class="metric"><div class="m-l">Запросов / мес</div><div class="m-v">${fmt(req)}</div></div>
-        <div class="metric"><div class="m-l">Карточек</div><div class="m-v">${fmt(cards)}</div></div>
-        <div class="metric"><div class="m-l">Тип</div><div class="m-v" style="font-size:13px;font-weight:600;color:${cards<=5?'var(--green)':cards<=100?'var(--blue)':'var(--t2)'}">${cards<=5?'Пустая':cards<=100?'Свободная':'Занятая'}</div></div>
+        <div class="metric">
+          <div class="m-label">Запросов</div>
+          <div class="m-value">${fmt(req)}</div>
+        </div>
+        <div class="metric">
+          <div class="m-label">Карточек</div>
+          <div class="m-value" style="color:${cards<=5?'var(--green)':cards<=100?'var(--blue)':'var(--text)'}">${fmt(cards)}</div>
+        </div>
+        <div class="metric">
+          <div class="m-label">Конкур.</div>
+          <div class="m-value" style="color:${barCol}">${c.toFixed(4)}</div>
+        </div>
       </div>
-      <div class="bar-wrap">
-        <div class="bar-labels"><span>Конкуренция</span><span>${c.toFixed(4)}</span></div>
-        <div class="bar"><div class="bar-fill" style="width:${pct}%;background:${col}"></div></div>
+      <div class="comp-row">
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${pct}%;background:${barCol}"></div>
+        </div>
       </div>
     </div>`;
   }).join('');
@@ -346,22 +685,32 @@ function draw(){
 
 function setSort(f,btn){
   if(sort===f)asc[f]=!asc[f];else sort=f;
-  document.querySelectorAll('.seg-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.pill-group:first-child .pill').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   draw();
 }
 
+function setBrand(val,btn){
+  brandFilter=val;
+  document.querySelectorAll('#b-all,#b-no,#b-yes').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  draw();
+}
 
 function toggleAI(){
   document.getElementById('ab').classList.toggle('open');
   document.getElementById('chev').classList.toggle('open');
 }
 
+// Auto-load
 const FIXED='https://gist.githubusercontent.com/Igoroding/114c03bcf98115a54fd6e72fecd28656/raw/trenz_data.json';
 const saved=localStorage.getItem(KEY)||FIXED;
 document.getElementById('gin').value=saved;
 load(saved);
-setInterval(()=>{const u=localStorage.getItem(KEY);if(u&&document.getElementById('main').style.display!=='none')load(u);},5*60*1000);
+setInterval(()=>{
+  const u=localStorage.getItem(KEY)||FIXED;
+  if(document.getElementById('main').style.display!=='none')load(u);
+},5*60*1000);
 </script>
 </body>
 </html>
