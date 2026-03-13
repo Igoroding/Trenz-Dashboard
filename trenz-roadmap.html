@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRENZ — Roadmap & Token Launch</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg: #000000;
+    --bg-card: #111111;
+    --bg-card-hover: #1a1a1a;
+    --border: #222222;
+    --text: #f5f5f7;
+    --text-secondary: #86868b;
+    --text-tertiary: #6e6e73;
+    --accent: #2997ff;
+    --accent-green: #30d158;
+    --accent-purple: #bf5af2;
+    --accent-orange: #ff9f0a;
+    --accent-red: #ff453a;
+    --accent-teal: #64d2ff;
+    --accent-pink: #ff375f;
+    --gradient-1: linear-gradient(135deg, #2997ff, #bf5af2);
+    --gradient-2: linear-gradient(135deg, #30d158, #2997ff);
+    --gradient-3: linear-gradient(135deg, #ff9f0a, #ff453a);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(0,0,0,0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  nav .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  nav .logo {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  nav .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  nav .nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  nav .nav-links a:hover { color: var(--text); }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(41,151,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    background: rgba(41,151,255,0.1);
+    border: 1px solid rgba(41,151,255,0.2);
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 2rem;
+  }
+
+  .hero-badge .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to bottom, #f5f5f7, #86868b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    color: var(--text-secondary);
+    max-width: 600px;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 4rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-stat {
+    text-align: center;
+  }
+
+  .hero-stat .value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-stat .label {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    margin-top: 0.25rem;
+    font-weight: 400;
+  }
+
+  .scroll-indicator {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-tertiary);
+    font-size: 0.75rem;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* ===== SECTIONS ===== */
+  section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8rem 2rem;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    font-weight: 300;
+    line-height: 1.5;
+    margin-bottom: 4rem;
+  }
+
+  /* ===== PROBLEM / SOLUTION ===== */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .feature-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-card:hover {
+    background: var(--bg-card-hover);
+    border-color: #333;
+    transform: translateY(-2px);
+  }
+
+  .feature-card .icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .feature-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ===== TOKENOMICS ===== */
+  .tokenomics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .donut-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .donut-container h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .donut-wrap {
+    position: relative;
+    width: 280px;
+    height: 280px;
+  }
+
+  .donut-wrap canvas {
+    width: 100%;
+    height: 100%;
+  }
+
+  .donut-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .donut-center .big {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .donut-center .small {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+  }
+
+  .legend {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 100%;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+  }
+
+  .legend-item .left {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .legend-item .pct {
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  /* ===== ROUNDS ===== */
+  .rounds-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .round-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .round-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+  }
+
+  .round-card.seed::before { background: var(--gradient-2); }
+  .round-card.public::before { background: var(--gradient-1); }
+
+  .round-tag {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+  }
+
+  .round-card.seed .round-tag {
+    background: rgba(48,209,88,0.12);
+    color: var(--accent-green);
+  }
+
+  .round-card.public .round-tag {
+    background: rgba(41,151,255,0.12);
+    color: var(--accent);
+  }
+
+  .round-card .amount {
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+
+  .round-card.seed .amount { color: var(--accent-green); }
+  .round-card.public .amount { color: var(--accent); }
+
+  .round-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .round-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .round-detail:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .round-detail .key {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    font-weight: 400;
+  }
+
+  .round-detail .val {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  /* ===== MULTIPLIER BANNER ===== */
+  .multiplier-banner {
+    margin-top: 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .multiplier-banner .mult-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .multiplier-banner .mult-value {
+    font-size: 2rem;
+    font-weight: 800;
+    background: var(--gradient-3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .multiplier-banner .mult-label {
+    font-size: 0.78rem;
+    color: var(--text-tertiary);
+    margin-top: 0.2rem;
+  }
+
+  .multiplier-arrow {
+    font-size: 1.5rem;
+    color: var(--text-tertiary);
+  }
+
+  /* ===== BUDGET ===== */
+  .budget-section {
+    margin-top: 3rem;
+  }
+
+  .budget-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    margin-top: 3rem;
+  }
+
+  .budget-item {
+    position: relative;
+  }
+
+  .budget-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.6rem;
+  }
+
+  .budget-item-header .name {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .budget-item-header .amount {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .bar-bg {
+    width: 100%;
+    height: 8px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0;
+  }
+
+  .budget-item .details {
+    margin-top: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--text-tertiary);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* Budget detail breakdown cards */
+  .budget-breakdown {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .budget-detail-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .budget-detail-card:hover {
+    border-color: #333;
+    transform: translateY(-2px);
+  }
+
+  .budget-detail-card .card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .budget-detail-card h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  .budget-detail-card .card-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .budget-detail-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .budget-detail-card li {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .budget-detail-card li::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--text-tertiary);
+    margin-top: 0.45rem;
+    flex-shrink: 0;
+  }
+
+  /* ===== ROADMAP TIMELINE ===== */
+  .timeline {
+    position: relative;
+    margin-top: 4rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent-purple), var(--accent-green));
+    opacity: 0.3;
+    transform: translateX(-50%);
+  }
+
+  .timeline-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 4rem;
+    position: relative;
+  }
+
+  .timeline-item:nth-child(odd) { flex-direction: row; }
+  .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+
+  .timeline-content {
+    width: calc(50% - 3rem);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem 2.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-content:hover {
+    border-color: #333;
+    transform: translateY(-2px);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid var(--bg);
+    z-index: 2;
+  }
+
+  .timeline-content .phase-tag {
+    display: inline-block;
+    padding: 0.25rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 1rem;
+  }
+
+  .timeline-content h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .timeline-content .period {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    margin-bottom: 1rem;
+  }
+
+  .timeline-content p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-weight: 300;
+    margin-bottom: 1.2rem;
+  }
+
+  .timeline-content .kpi {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .kpi-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  /* ===== UTILITY ===== */
+  .utility-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .utility-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .utility-card:hover {
+    border-color: #333;
+    transform: translateY(-2px);
+  }
+
+  .utility-card .u-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .utility-card h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .utility-card p {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  /* ===== KPI TABLE ===== */
+  .kpi-table-wrap {
+    margin-top: 3rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .kpi-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .kpi-table th {
+    background: rgba(255,255,255,0.03);
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-tertiary);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .kpi-table td {
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-weight: 400;
+  }
+
+  .kpi-table tr:last-child td { border-bottom: none; }
+
+  .kpi-table .phase-cell {
+    font-weight: 600;
+  }
+
+  .kpi-table .highlight {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* ===== WHY SECTION ===== */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .why-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .why-card:hover {
+    border-color: #333;
+  }
+
+  .why-card .num {
+    font-size: 3rem;
+    font-weight: 800;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+
+  .why-card h4 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .why-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ===== VESTING VISUAL ===== */
+  .vesting-chart {
+    margin-top: 3rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+  }
+
+  .vesting-chart h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
+  .vesting-bar-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .vesting-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .vesting-label {
+    width: 140px;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .vesting-track {
+    flex: 1;
+    height: 32px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .vesting-segment {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    position: relative;
+    min-width: 30px;
+  }
+
+  .vesting-months {
+    display: flex;
+    margin-left: 156px;
+    margin-top: 0.5rem;
+  }
+
+  .vesting-months span {
+    font-size: 0.65rem;
+    color: var(--text-tertiary);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    border-top: 1px solid var(--border);
+    margin-top: 4rem;
+  }
+
+  footer p {
+    font-size: 0.82rem;
+    color: var(--text-tertiary);
+  }
+
+  /* ===== FLOW DIAGRAM ===== */
+  .flow-section {
+    margin-top: 4rem;
+  }
+
+  .flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding: 2rem 0;
+  }
+
+  .flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+    width: 150px;
+  }
+
+  .flow-step .flow-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    position: relative;
+  }
+
+  .flow-step .flow-text {
+    font-size: 0.82rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .flow-step .flow-sub {
+    font-size: 0.7rem;
+    color: var(--text-tertiary);
+  }
+
+  .flow-arrow {
+    font-size: 1.2rem;
+    color: var(--text-tertiary);
+    margin: 0 0.5rem;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .two-col, .tokenomics-grid, .rounds-grid, .why-grid {
+      grid-template-columns: 1fr;
+    }
+    .utility-grid, .budget-breakdown {
+      grid-template-columns: 1fr 1fr;
+    }
+    .timeline::before { left: 2rem; }
+    .timeline-item, .timeline-item:nth-child(even) {
+      flex-direction: row !important;
+      padding-left: 3.5rem;
+    }
+    .timeline-content { width: 100%; }
+    .timeline-dot { left: 2rem; }
+    nav .nav-links { display: none; }
+    .flow-diagram { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+
+  @media (max-width: 600px) {
+    .utility-grid, .budget-breakdown {
+      grid-template-columns: 1fr;
+    }
+    .hero-stats { gap: 2rem; }
+    section { padding: 4rem 1.25rem; }
+  }
+
+  /* ===== ANIMATIONS ===== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">TRENZ</div>
+    <ul class="nav-links">
+      <li><a href="#about">О проекте</a></li>
+      <li><a href="#tokenomics">Токеномика</a></li>
+      <li><a href="#rounds">Раунды</a></li>
+      <li><a href="#budget">Бюджет</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#utility">Утилити</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    Действующий продукт с подпиской
+  </div>
+  <h1>TRENZ</h1>
+  <p>Платформа для поиска растущих ниш на маркетплейсах. Помогаем предпринимателям находить возможности до того, как их увидят конкуренты.</p>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="value">$500K</div>
+      <div class="label">Целевой сбор</div>
+    </div>
+    <div class="hero-stat">
+      <div class="value">2</div>
+      <div class="label">Раунда инвестиций</div>
+    </div>
+    <div class="hero-stat">
+      <div class="value">20%</div>
+      <div class="label">Доля инвесторам</div>
+    </div>
+    <div class="hero-stat">
+      <div class="value">18 мес</div>
+      <div class="label">Горизонт масштабирования</div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>Листайте вниз</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">О проекте</div>
+  <div class="section-title">Данные вместо догадок</div>
+  <div class="section-subtitle">Trenz анализирует спрос, предложение и динамику роста на маркетплейсах, чтобы предприниматели запускали бизнес в нишах с минимальной конкуренцией и максимальным потенциалом.</div>
+
+  <div class="two-col fade-in">
+    <div class="feature-card">
+      <div class="icon" style="background: rgba(255,69,58,0.12);">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff453a" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+      </div>
+      <h3>Проблема</h3>
+      <p>80% новых продавцов на маркетплейсах прогорают в первый год. Они заходят в перенасыщенные ниши, конкурируют с тысячами продавцов, тратят бюджет на рекламу — и уходят в минус. Нет инструмента, который покажет, где реально есть место для нового игрока.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon" style="background: rgba(48,209,88,0.12);">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#30d158" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+      </div>
+      <h3>Решение — Trenz</h3>
+      <p>Еженедельно обновляемая база свободных ниш с аналитикой по спросу, конкуренции и тренду. Предприниматель видит: «В этой категории 500 запросов в день и всего 12 продавцов — заходи». Сейчас для Wildberries, скоро — Ozon, Яндекс, Авито.</p>
+    </div>
+  </div>
+
+  <!-- FLOW -->
+  <div class="flow-diagram fade-in">
+    <div class="flow-step">
+      <div class="flow-icon" style="background: rgba(41,151,255,0.12);">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      </div>
+      <span class="flow-text">Сбор данных</span>
+      <span class="flow-sub">Спрос, предложение, цены</span>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step">
+      <div class="flow-icon" style="background: rgba(191,90,242,0.12);">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#bf5af2" stroke-width="2"><path d="M12 20V10M6 20V4M18 20v-6"/></svg>
+      </div>
+      <span class="flow-text">Анализ</span>
+      <span class="flow-sub">Тренд, конкуренция, маржа</span>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step">
+      <div class="flow-icon" style="background: rgba(48,209,88,0.12);">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#30d158" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+      </div>
+      <span class="flow-text">Свободные ниши</span>
+      <span class="flow-sub">Рекомендации пользователю</span>
+    </div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step">
+      <div class="flow-icon" style="background: rgba(255,159,10,0.12);">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ff9f0a" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <span class="flow-text">Запуск бизнеса</span>
+      <span class="flow-sub">Вход в растущую нишу</span>
+    </div>
+  </div>
+</section>
+
+<!-- TOKENOMICS -->
+<section id="tokenomics">
+  <div class="section-label">Токеномика</div>
+  <div class="section-title">Распределение 1 млрд TRENZ</div>
+  <div class="section-subtitle">Utility-токен, интегрированный в экосистему продукта. 20% — инвесторам ($500K), контроль остаётся у команды.</div>
+
+  <div class="tokenomics-grid fade-in">
+    <div class="donut-container">
+      <h3>Распределение токенов</h3>
+      <div class="donut-wrap">
+        <canvas id="tokenChart"></canvas>
+        <div class="donut-center">
+          <div class="big">1B</div>
+          <div class="small">TRENZ</div>
+        </div>
+      </div>
+      <div class="legend" id="tokenLegend"></div>
+    </div>
+    <div class="donut-container">
+      <h3>Контроль проекта</h3>
+      <div class="donut-wrap">
+        <canvas id="controlChart"></canvas>
+        <div class="donut-center">
+          <div class="big">80%</div>
+          <div class="small">Команда</div>
+        </div>
+      </div>
+      <div class="legend" id="controlLegend"></div>
+    </div>
+  </div>
+
+  <!-- VESTING -->
+  <div class="vesting-chart fade-in">
+    <h3>Расписание вестинга (разблокировки токенов)</h3>
+    <div class="vesting-bar-group">
+      <div class="vesting-row">
+        <span class="vesting-label">Команда</span>
+        <div class="vesting-track">
+          <div class="vesting-segment" style="width: 25%; background: rgba(255,255,255,0.08);">клифф</div>
+          <div class="vesting-segment" style="width: 75%; background: linear-gradient(90deg, rgba(41,151,255,0.3), rgba(41,151,255,0.6));">линейно 24 мес</div>
+        </div>
+      </div>
+      <div class="vesting-row">
+        <span class="vesting-label">Seed инвесторы</span>
+        <div class="vesting-track">
+          <div class="vesting-segment" style="width: 8%; background: rgba(48,209,88,0.5);">10%</div>
+          <div class="vesting-segment" style="width: 92%; background: linear-gradient(90deg, rgba(48,209,88,0.2), rgba(48,209,88,0.5));">линейно 12 мес</div>
+        </div>
+      </div>
+      <div class="vesting-row">
+        <span class="vesting-label">Public инвесторы</span>
+        <div class="vesting-track">
+          <div class="vesting-segment" style="width: 16%; background: rgba(191,90,242,0.5);">20%</div>
+          <div class="vesting-segment" style="width: 84%; background: linear-gradient(90deg, rgba(191,90,242,0.2), rgba(191,90,242,0.5));">линейно 6 мес</div>
+        </div>
+      </div>
+      <div class="vesting-row">
+        <span class="vesting-label">Экосистема</span>
+        <div class="vesting-track">
+          <div class="vesting-segment" style="width: 100%; background: linear-gradient(90deg, rgba(255,159,10,0.15), rgba(255,159,10,0.45));">по мере роста, 36 мес</div>
+        </div>
+      </div>
+      <div class="vesting-row">
+        <span class="vesting-label">Эдвайзеры</span>
+        <div class="vesting-track">
+          <div class="vesting-segment" style="width: 100%; background: linear-gradient(90deg, rgba(100,210,255,0.15), rgba(100,210,255,0.4));">линейно 12 мес</div>
+        </div>
+      </div>
+    </div>
+    <div class="vesting-months" style="justify-content: space-between; margin-top: 0.8rem;">
+      <span style="font-size:0.7rem;color:var(--text-tertiary)">TGE</span>
+      <span style="font-size:0.7rem;color:var(--text-tertiary)">6 мес</span>
+      <span style="font-size:0.7rem;color:var(--text-tertiary)">12 мес</span>
+      <span style="font-size:0.7rem;color:var(--text-tertiary)">24 мес</span>
+      <span style="font-size:0.7rem;color:var(--text-tertiary)">36 мес</span>
+    </div>
+  </div>
+</section>
+
+<!-- ROUNDS -->
+<section id="rounds">
+  <div class="section-label">Раунды инвестиций</div>
+  <div class="section-title">Два этапа привлечения</div>
+  <div class="section-subtitle">Рост цены между раундами ×2.2 — стандартная модель, вознаграждающая ранних инвесторов.</div>
+
+  <div class="rounds-grid fade-in">
+    <div class="round-card seed">
+      <div class="round-tag">Seed Round</div>
+      <div class="amount">$200,000</div>
+      <div class="round-details">
+        <div class="round-detail">
+          <span class="key">Аллокация</span>
+          <span class="val">12% (120M TRENZ)</span>
+        </div>
+        <div class="round-detail">
+          <span class="key">Цена токена</span>
+          <span class="val">$0.00167</span>
+        </div>
+        <div class="round-detail">
+          <span class="key">FDV</span>
+          <span class="val">$1,670,000</span>
+        </div>
+        <div class="round-detail">
+          <span class="key">Мин. вход</span>
+          <span class="val">$200</span>
+        </div>
+        <div class="round-detail">
+          <span class="key">Участников</span>
+          <span class="val">~1,000</span>
+        </div>
+        <div class="round-detail">
+          <span class="key">Вестинг</span>
+          <span class="val">10% TGE, 12 мес линейно</span>
+        </div>
+      </div>
+    </div>
+    <div class="round-card public">
+      <div class="round-tag">Public Round / IDO</div>
+      <div class="amount">$300,000</div>
+      <div class="round-details">
+        <div class="round-detail">
+          <span class="key">Аллокация</span>
+          <span class="val">8% (80M TRENZ)</span>
+        </div>
+        <div class="round-detail">
+          <span class="key">Цена токена</span>
+          <span class="val">$0.00375</span>
+        </div>
+        <div class="round-detail">
+          <span class="key">FDV</span>
+          <span class="val">$3,750,000</span>
+        </div>
+        <div class="round-detail">
+          <span class="key">Мин. вход</span>
+          <span class="val">$100–200</span>
+        </div>
+        <div class="round-detail">
+          <span class="key">Участников</span>
+          <span class="val">~1,500–3,000</span>
+        </div>
+        <div class="round-detail">
+          <span class="key">Вестинг</span>
+          <span class="val">20% TGE, 6 мес линейно</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="multiplier-banner fade-in">
+    <div class="mult-block">
+      <div class="mult-value">$0.00167</div>
+      <div class="mult-label">Цена Seed</div>
+    </div>
+    <span class="multiplier-arrow">→</span>
+    <div class="mult-block">
+      <div class="mult-value">×2.2</div>
+      <div class="mult-label">Рост между раундами</div>
+    </div>
+    <span class="multiplier-arrow">→</span>
+    <div class="mult-block">
+      <div class="mult-value">$0.00375</div>
+      <div class="mult-label">Цена Public</div>
+    </div>
+    <span class="multiplier-arrow">→</span>
+    <div class="mult-block">
+      <div class="mult-value">$500K</div>
+      <div class="mult-label">Итого привлечение</div>
+    </div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section id="budget">
+  <div class="section-label">Использование инвестиций</div>
+  <div class="section-title">Куда пойдут $500K</div>
+  <div class="section-subtitle">Каждый доллар привязан к конкретному результату. Фокус: продукт, маркетинг, листинг.</div>
+
+  <div class="budget-bars fade-in">
+    <div class="budget-item">
+      <div class="budget-item-header">
+        <span class="name">Разработка продукта</span>
+        <span class="amount">$200,000 · 40%</span>
+      </div>
+      <div class="bar-bg"><div class="bar-fill" data-width="40" style="background: var(--gradient-1);"></div></div>
+    </div>
+    <div class="budget-item">
+      <div class="budget-item-header">
+        <span class="name">Маркетинг и привлечение пользователей</span>
+        <span class="amount">$150,000 · 30%</span>
+      </div>
+      <div class="bar-bg"><div class="bar-fill" data-width="30" style="background: var(--gradient-2);"></div></div>
+    </div>
+    <div class="budget-item">
+      <div class="budget-item-header">
+        <span class="name">Ликвидность для DEX-листинга</span>
+        <span class="amount">$60,000 · 12%</span>
+      </div>
+      <div class="bar-bg"><div class="bar-fill" data-width="12" style="background: linear-gradient(90deg, #bf5af2, #ff375f);"></div></div>
+    </div>
+    <div class="budget-item">
+      <div class="budget-item-header">
+        <span class="name">Юридическое сопровождение</span>
+        <span class="amount">$40,000 · 8%</span>
+      </div>
+      <div class="bar-bg"><div class="bar-fill" data-width="8" style="background: linear-gradient(90deg, #ff9f0a, #ff453a);"></div></div>
+    </div>
+    <div class="budget-item">
+      <div class="budget-item-header">
+        <span class="name">Аудит смарт-контракта</span>
+        <span class="amount">$25,000 · 5%</span>
+      </div>
+      <div class="bar-bg"><div class="bar-fill" data-width="5" style="background: linear-gradient(90deg, #64d2ff, #2997ff);"></div></div>
+    </div>
+    <div class="budget-item">
+      <div class="budget-item-header">
+        <span class="name">Операционные расходы</span>
+        <span class="amount">$25,000 · 5%</span>
+      </div>
+      <div class="bar-bg"><div class="bar-fill" data-width="5" style="background: rgba(255,255,255,0.3);"></div></div>
+    </div>
+  </div>
+
+  <!-- DETAILED BREAKDOWN -->
+  <div class="budget-breakdown fade-in">
+    <div class="budget-detail-card">
+      <div class="card-icon" style="background: rgba(41,151,255,0.12);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <h4>Разработка продукта</h4>
+      <div class="card-amount" style="color: var(--accent);">$200,000</div>
+      <ul>
+        <li>Подключение API Ozon ($25K) — парсинг данных, интеграция аналитики, тестирование</li>
+        <li>Подключение Яндекс Маркет + Авито ($35K) — адаптация алгоритмов, парсеры, API</li>
+        <li>Мобильное приложение iOS + Android ($50K) — React Native, push-уведомления, дашборды</li>
+        <li>AI-модуль прогнозирования трендов ($40K) — ML-модель, обучение на данных, прогнозы ниш</li>
+        <li>Инфраструктура и серверы ($25K) — масштабирование, CDN, мониторинг, бэкапы</li>
+        <li>Доработка веб-платформы ($25K) — новый UI/UX, дашборды, личный кабинет, API для партнёров</li>
+      </ul>
+    </div>
+    <div class="budget-detail-card">
+      <div class="card-icon" style="background: rgba(48,209,88,0.12);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#30d158" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <h4>Маркетинг и привлечение</h4>
+      <div class="card-amount" style="color: var(--accent-green);">$150,000</div>
+      <ul>
+        <li>Контент-маркетинг ($35K) — YouTube, TikTok, Telegram: обзоры ниш, кейсы, обучение, видеопродакшн</li>
+        <li>Блогеры и инфлюенсеры ($45K) — топ-селлеры с аудиторией, крипто-инфлюенсеры, амбассадоры</li>
+        <li>Таргетированная реклама ($35K) — Telegram Ads, VK, контекст, ретаргетинг</li>
+        <li>Реферальная программа ($20K) — бонусы в токенах за приглашённых пользователей</li>
+        <li>PR и события ($15K) — статьи в СМИ, подкасты, конференции, партнёрские вебинары</li>
+      </ul>
+    </div>
+    <div class="budget-detail-card">
+      <div class="card-icon" style="background: rgba(191,90,242,0.12);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#bf5af2" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <h4>Ликвидность DEX</h4>
+      <div class="card-amount" style="color: var(--accent-purple);">$60,000</div>
+      <ul>
+        <li>Начальный пул ликвидности ($40K) — пара TRENZ/USDT на PancakeSwap и Raydium</li>
+        <li>Market-making буфер ($12K) — поддержание стабильности торгов в первые месяцы</li>
+        <li>Листинг-фи CEX ($8K) — оплата листинга на MEXC / Gate.io</li>
+      </ul>
+    </div>
+    <div class="budget-detail-card">
+      <div class="card-icon" style="background: rgba(255,159,10,0.12);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff9f0a" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+      </div>
+      <h4>Юридическое сопровождение</h4>
+      <div class="card-amount" style="color: var(--accent-orange);">$40,000</div>
+      <ul>
+        <li>Регистрация юрлица ($12K) — ОАЭ или BVI, юрисдикция для токен-проекта</li>
+        <li>Legal opinion для токена ($10K) — подтверждение utility-статуса, мнения 2 юрисдикций</li>
+        <li>Terms of Service и документация ($8K) — пользовательские соглашения, Privacy Policy, Whitepaper review</li>
+        <li>KYC/AML интеграция ($5K) — верификация для токен-сейла, интеграция провайдера</li>
+        <li>IP-защита и патенты ($5K) — защита интеллектуальной собственности, товарный знак</li>
+      </ul>
+    </div>
+    <div class="budget-detail-card">
+      <div class="card-icon" style="background: rgba(100,210,255,0.12);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#64d2ff" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h4>Аудит смарт-контракта</h4>
+      <div class="card-amount" style="color: var(--accent-teal);">$25,000</div>
+      <ul>
+        <li>Аудит кода токена ($15K) — полная проверка CertiK или Hacken, публичный отчёт</li>
+        <li>Аудит вестинг-контракта ($5K) — проверка логики разблокировки</li>
+        <li>Тестирование и деплой ($5K) — тестнет, стресс-тесты, деплой в мейннет, мониторинг</li>
+      </ul>
+    </div>
+    <div class="budget-detail-card">
+      <div class="card-icon" style="background: rgba(255,255,255,0.08);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#86868b" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <h4>Операционные расходы</h4>
+      <div class="card-amount" style="color: var(--text-secondary);">$10,000</div>
+      <ul>
+        <li>Сервисы и подписки ($4K) — аналитика, CRM, инструменты команды</li>
+        <li>Комьюнити-менеджмент ($3K) — модерация, support, чат-боты</li>
+        <li>Резерв на непредвиденное ($3K) — буфер на экстренные расходы</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP TIMELINE -->
+<section id="roadmap">
+  <div class="section-label">Дорожная карта</div>
+  <div class="section-title">От подготовки до масштаба</div>
+  <div class="section-subtitle">6 фаз за 18 месяцев. Каждая фаза — конкретные задачи и измеримые результаты.</div>
+
+  <div class="timeline fade-in">
+    <!-- Phase 0 -->
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="phase-tag" style="background: rgba(134,134,139,0.15); color: var(--text-secondary);">Фаза 0</div>
+        <h3>Подготовка</h3>
+        <div class="period">Месяц 1–2</div>
+        <p>Финализация whitepaper и токеномики. Разработка и аудит смарт-контракта. Юридическая структура. Лендинг токен-сейла. Интеграция с лаунчпадом. Запуск Telegram-комьюнити и Twitter/X.</p>
+        <div class="kpi">
+          <span class="kpi-tag">Контракт задеплоен</span>
+          <span class="kpi-tag">Whitepaper готов</span>
+          <span class="kpi-tag">1 000+ в комьюнити</span>
+        </div>
+      </div>
+      <div class="timeline-dot" style="background: var(--text-tertiary);"></div>
+    </div>
+
+    <!-- Phase 1 -->
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="phase-tag" style="background: rgba(48,209,88,0.12); color: var(--accent-green);">Фаза 1</div>
+        <h3>Seed Round</h3>
+        <div class="period">Месяц 3</div>
+        <p>Запуск Seed Round на лаунчпаде. AMA-сессии и презентации инвесторам. Маркетинговая кампания в крипто-сообществах. Формирование advisory board.</p>
+        <div class="kpi">
+          <span class="kpi-tag" style="color: var(--accent-green);">$78K собрано</span>
+          <span class="kpi-tag">780+ инвесторов</span>
+          <span class="kpi-tag">1 000+ пользователей</span>
+        </div>
+      </div>
+      <div class="timeline-dot" style="background: var(--accent-green);"></div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="phase-tag" style="background: rgba(41,151,255,0.12); color: var(--accent);">Фаза 2</div>
+        <h3>Разработка + рост базы</h3>
+        <div class="period">Месяц 4–6</div>
+        <p>Подключение Ozon к базе трендов. Запуск freemium-тарифа для массового привлечения. MVP мобильного приложения. Тестовая реферальная программа в токенах. Активный контент-маркетинг.</p>
+        <div class="kpi">
+          <span class="kpi-tag" style="color: var(--accent);">5 000+ пользователей</span>
+          <span class="kpi-tag">2 маркетплейса</span>
+          <span class="kpi-tag">Приложение в бета</span>
+        </div>
+      </div>
+      <div class="timeline-dot" style="background: var(--accent);"></div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="phase-tag" style="background: rgba(191,90,242,0.12); color: var(--accent-purple);">Фаза 3</div>
+        <h3>Public Round / IDO</h3>
+        <div class="period">Месяц 7</div>
+        <p>Запуск Public Round на лаунчпаде. Масштабная PR-кампания. Публикация аудита. Демонстрация метрик роста инвесторам. Расширение на дополнительные IDO-площадки.</p>
+        <div class="kpi">
+          <span class="kpi-tag" style="color: var(--accent-purple);">$120K собрано</span>
+          <span class="kpi-tag">2 400+ инвесторов</span>
+          <span class="kpi-tag">10 000+ пользователей</span>
+        </div>
+      </div>
+      <div class="timeline-dot" style="background: var(--accent-purple);"></div>
+    </div>
+
+    <!-- Phase 4 -->
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="phase-tag" style="background: rgba(255,159,10,0.12); color: var(--accent-orange);">Фаза 4</div>
+        <h3>TGE и листинг</h3>
+        <div class="period">Месяц 8–9</div>
+        <p>Token Generation Event. Листинг на DEX (PancakeSwap / Raydium). Создание пула ликвидности. Запуск вестинг-расписания. Интеграция оплаты подписки токенами. Подача на CEX (MEXC, Gate.io).</p>
+        <div class="kpi">
+          <span class="kpi-tag" style="color: var(--accent-orange);">Токен на DEX</span>
+          <span class="kpi-tag">15 000+ пользователей</span>
+          <span class="kpi-tag">Оплата токенами live</span>
+        </div>
+      </div>
+      <div class="timeline-dot" style="background: var(--accent-orange);"></div>
+    </div>
+
+    <!-- Phase 5 -->
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="phase-tag" style="background: rgba(255,55,95,0.12); color: var(--accent-pink);">Фаза 5</div>
+        <h3>Масштабирование</h3>
+        <div class="period">Месяц 10–18</div>
+        <p>Подключение Яндекс Маркет и Авито. Запуск AI-прогнозов (премиум). Стейкинг-программа. Burn-механика. Партнёрства с сервисами для селлеров. Исследование международных рынков (Amazon, Etsy). Подача на крупные биржи.</p>
+        <div class="kpi">
+          <span class="kpi-tag" style="color: var(--accent-pink);">50 000+ пользователей</span>
+          <span class="kpi-tag">4+ маркетплейса</span>
+          <span class="kpi-tag">CEX листинг</span>
+          <span class="kpi-tag">AI-прогнозы</span>
+        </div>
+      </div>
+      <div class="timeline-dot" style="background: var(--accent-pink);"></div>
+    </div>
+  </div>
+
+  <!-- KPI TABLE -->
+  <div class="kpi-table-wrap fade-in" style="margin-top: 4rem;">
+    <table class="kpi-table">
+      <thead>
+        <tr>
+          <th>Фаза</th>
+          <th>Срок</th>
+          <th>Пользователи</th>
+          <th>Маркетплейсы</th>
+          <th>Токен</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="phase-cell">0. Подготовка</td>
+          <td>Мес 1–2</td>
+          <td>текущие</td>
+          <td>1 (WB)</td>
+          <td>Контракт готов</td>
+        </tr>
+        <tr>
+          <td class="phase-cell">1. Seed</td>
+          <td>Мес 3</td>
+          <td>1 000+</td>
+          <td>1</td>
+          <td class="highlight">$78K собрано</td>
+        </tr>
+        <tr>
+          <td class="phase-cell">2. Рост</td>
+          <td>Мес 4–6</td>
+          <td>5 000+</td>
+          <td>2 (WB + Ozon)</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td class="phase-cell">3. IDO</td>
+          <td>Мес 7</td>
+          <td>10 000+</td>
+          <td>2</td>
+          <td class="highlight">$120K собрано</td>
+        </tr>
+        <tr>
+          <td class="phase-cell">4. TGE</td>
+          <td>Мес 8–9</td>
+          <td>15 000+</td>
+          <td>3</td>
+          <td>DEX листинг</td>
+        </tr>
+        <tr>
+          <td class="phase-cell">5. Масштаб</td>
+          <td>Мес 10–18</td>
+          <td>50 000+</td>
+          <td>4+</td>
+          <td>CEX листинг</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- UTILITY -->
+<section id="utility">
+  <div class="section-label">Утилити токена</div>
+  <div class="section-title">Зачем нужен TRENZ</div>
+  <div class="section-subtitle">Токен встроен в продукт — это не спекулятивный актив, а инструмент с реальным применением.</div>
+
+  <div class="utility-grid fade-in">
+    <div class="utility-card">
+      <div class="u-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>
+      </div>
+      <h4>Оплата подписки</h4>
+      <p>Скидка 30% при оплате токенами TRENZ. Прямой спрос на токен от платящих пользователей.</p>
+    </div>
+    <div class="utility-card">
+      <div class="u-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#bf5af2" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <h4>Премиум-данные</h4>
+      <p>AI-прогнозы трендов, исторические данные и расширенная аналитика — доступны только за токены.</p>
+    </div>
+    <div class="utility-card">
+      <div class="u-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#30d158" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h4>Стейкинг</h4>
+      <p>Застейканные токены = повышенный уровень доступа. Обновления данных ежедневно вместо еженедельно.</p>
+    </div>
+    <div class="utility-card">
+      <div class="u-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ff9f0a" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <h4>Реферальная программа</h4>
+      <p>Награды в токенах за каждого приведённого пользователя. Вирусный рост без затрат на рекламу.</p>
+    </div>
+    <div class="utility-card">
+      <div class="u-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ff453a" stroke-width="1.5"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+      </div>
+      <h4>Burn-механика</h4>
+      <p>Часть токенов от каждой подписки сжигается навсегда. Уменьшение эмиссии = рост стоимости.</p>
+    </div>
+    <div class="utility-card">
+      <div class="u-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#64d2ff" stroke-width="1.5"><path d="M12 20V10M6 20V4M18 20v-6"/></svg>
+      </div>
+      <h4>Governance</h4>
+      <p>Держатели токенов голосуют за приоритеты развития: какой маркетплейс подключать следующим.</p>
+    </div>
+  </div>
+
+  <!-- Flywheel -->
+  <div style="margin-top: 4rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 3rem; text-align: center;" class="fade-in">
+    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 2rem;">Маховик роста TRENZ</h3>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 0.3rem; flex-wrap: wrap; font-size: 0.9rem; font-weight: 500;">
+      <span style="padding: 0.6rem 1.2rem; border-radius: 12px; background: rgba(41,151,255,0.12); color: var(--accent);">Больше пользователей</span>
+      <span style="color: var(--text-tertiary);">→</span>
+      <span style="padding: 0.6rem 1.2rem; border-radius: 12px; background: rgba(48,209,88,0.12); color: var(--accent-green);">Больше подписок</span>
+      <span style="color: var(--text-tertiary);">→</span>
+      <span style="padding: 0.6rem 1.2rem; border-radius: 12px; background: rgba(191,90,242,0.12); color: var(--accent-purple);">Больше burn</span>
+      <span style="color: var(--text-tertiary);">→</span>
+      <span style="padding: 0.6rem 1.2rem; border-radius: 12px; background: rgba(255,159,10,0.12); color: var(--accent-orange);">Токен растёт</span>
+      <span style="color: var(--text-tertiary);">→</span>
+      <span style="padding: 0.6rem 1.2rem; border-radius: 12px; background: rgba(255,55,95,0.12); color: var(--accent-pink);">Привлекает внимание</span>
+      <span style="color: var(--text-tertiary);">→ ...</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHY TRENZ -->
+<section id="why" style="padding-bottom: 4rem;">
+  <div class="section-label">Почему Trenz</div>
+  <div class="section-title">Конкурентные преимущества</div>
+  <div class="section-subtitle">Чем Trenz отличается от 90% крипто-проектов.</div>
+
+  <div class="why-grid fade-in">
+    <div class="why-card">
+      <div class="num">01</div>
+      <h4>Работающий продукт</h4>
+      <p>Не идея и не прототип — действующий веб-сервис с платящими подписчиками. Инвесторы видят реальный бизнес, а не обещания в whitepaper.</p>
+    </div>
+    <div class="why-card">
+      <div class="num">02</div>
+      <h4>Понятная бизнес-модель</h4>
+      <p>SaaS-подписка — это проверенная модель монетизации. Каждый платящий пользователь создаёт спрос на токен через скидку при оплате.</p>
+    </div>
+    <div class="why-card">
+      <div class="num">03</div>
+      <h4>Огромный рынок</h4>
+      <p>Сотни тысяч предпринимателей торгуют на маркетплейсах СНГ. Wildberries, Ozon, Яндекс, Авито — каждому нужна аналитика и поиск ниш.</p>
+    </div>
+    <div class="why-card">
+      <div class="num">04</div>
+      <h4>Рост = рост токена</h4>
+      <p>Чем больше пользователей — тем больше подписок в токенах и сжигания. Органический рост стоимости, подкреплённый реальной экономикой продукта.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>TRENZ · Roadmap v1.0 · Март 2026 · Рабочий документ для обсуждения</p>
+</footer>
+
+<script>
+// ===== DONUT CHARTS =====
+function drawDonut(canvasId, legendId, data, centerText) {
+  const canvas = document.getElementById(canvasId);
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const size = 280;
+  canvas.width = size * dpr;
+  canvas.height = size * dpr;
+  canvas.style.width = size + 'px';
+  canvas.style.height = size + 'px';
+  ctx.scale(dpr, dpr);
+
+  const cx = size / 2, cy = size / 2, r = 105, lineWidth = 28;
+  let startAngle = -Math.PI / 2;
+
+  data.forEach(item => {
+    const sliceAngle = (item.pct / 100) * Math.PI * 2;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, startAngle, startAngle + sliceAngle);
+    ctx.strokeStyle = item.color;
+    ctx.lineWidth = lineWidth;
+    ctx.lineCap = 'butt';
+    ctx.stroke();
+    startAngle += sliceAngle + 0.02;
+  });
+
+  // Legend
+  const legend = document.getElementById(legendId);
+  legend.innerHTML = data.map(item => `
+    <div class="legend-item">
+      <div class="left">
+        <div class="legend-dot" style="background:${item.color}"></div>
+        <span>${item.label}</span>
+      </div>
+      <span class="pct">${item.pct}%</span>
+    </div>
+  `).join('');
+}
+
+// Token distribution
+drawDonut('tokenChart', 'tokenLegend', [
+  { label: 'Команда и фаундеры', pct: 55, color: '#2997ff' },
+  { label: 'Seed Round', pct: 12, color: '#30d158' },
+  { label: 'Public Round', pct: 8, color: '#bf5af2' },
+  { label: 'Экосистема', pct: 10, color: '#ff9f0a' },
+  { label: 'Ликвидность', pct: 5, color: '#64d2ff' },
+  { label: 'Маркетинг', pct: 5, color: '#ff375f' },
+  { label: 'Резерв', pct: 3, color: '#86868b' },
+  { label: 'Эдвайзеры', pct: 2, color: '#5e5ce6' }
+]);
+
+// Control chart
+drawDonut('controlChart', 'controlLegend', [
+  { label: 'Команда + резерв + экосистема', pct: 68, color: '#2997ff' },
+  { label: 'Маркетинг + ликвидность', pct: 12, color: '#64d2ff' },
+  { label: 'Инвесторы (Seed + Public)', pct: 20, color: '#30d158' }
+]);
+
+// ===== ANIMATED BARS =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+
+      // Animate budget bars
+      entry.target.querySelectorAll('.bar-fill').forEach(bar => {
+        const w = bar.getAttribute('data-width');
+        setTimeout(() => { bar.style.width = w + '%'; }, 200);
+      });
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ===== SMOOTH SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
