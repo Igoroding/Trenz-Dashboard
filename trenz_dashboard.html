@@ -329,7 +329,7 @@ const BLACKLIST_URL = 'https://raw.githubusercontent.com/Igoroding/Trenz-Dashboa
 
 let niches = [], sort = 'concurrency', brandFilter = 'no_brand';
 // Webhook URL для добавления в блэклист — вставьте после импорта воркфлоу
-const BLACKLIST_WEBHOOK = localStorage.getItem('trenz_webhook') || '';
+const BLACKLIST_WEBHOOK = localStorage.getItem('trenz_webhook') || 'https://wbtrenz.app.n8n.cloud/webhook/trenz-blacklist';
 
 async function banPhrase(phrase, btn) {
   if (!BLACKLIST_WEBHOOK) {
