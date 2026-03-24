@@ -479,7 +479,7 @@ function draw() {
   const q = document.getElementById('sq').value.toLowerCase();
   let list = niches.filter(n => {
     if (isJunk(n.phrase||'')) return false;
-    if (n.is_brand && isBrandBanned(n.phrase||'')) return false;
+    if (isBrandBanned(n.phrase||'')) return false;
     if (brandFilter === 'no_brand' && n.is_brand) return false;
     if (q && !n.phrase?.toLowerCase().includes(q) && !n.category?.toLowerCase().includes(q)) return false;
     return true;
