@@ -326,28 +326,38 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 2px solid var(--text);
 const KEY = 'trenz_gist_v2';
 const FIXED = 'https://gist.githubusercontent.com/Igoroding/114c03bcf98115a54fd6e72fecd28656/raw/trenz_data.json';
 const BLACKLIST_URL = 'https://raw.githubusercontent.com/Igoroding/Trenz-Dashboard/main/blacklist.json';
+const BRANDS_BLACKLIST_URL = 'https://raw.githubusercontent.com/Igoroding/Trenz-Dashboard/main/brands_blacklist.json';
+const BLACKLIST_WEBHOOK = 'https://wbtrenz.app.n8n.cloud/webhook/trenz-blacklist';
 
 let niches = [], sort = 'concurrency', brandFilter = 'no_brand';
-// Webhook URL для добавления в блэклист — вставьте после импорта воркфлоу
-const BLACKLIST_WEBHOOK = localStorage.getItem('trenz_webhook') || 'https://wbtrenz.app.n8n.cloud/webhook/trenz-blacklist';
+let asc = { concurrency: true, request_count: false, cards_count: true };
+let BLACKLIST = new Set();
+let BRANDS_BLACKLIST = new Set();
 
-async function banPhrase(phrase, btn) {
-  if (!BLACKLIST_WEBHOOK) {
-    const url = prompt('Введите URL вашего N8N webhook (trenz-blacklist):');
-    if (!url) return;
-    localStorage.setItem('trenz_webhook', url);
-  }
-  const webhookUrl = localStorage.getItem('trenz_webhook');
+// Загружаем оба блэклиста параллельно
+Promise.all([
+  fetch(BLACKLIST_URL + '?t=' + Date.now()).then(r => r.json()).catch(() => []),
+  fetch(BRANDS_BLACKLIST_URL + '?t=' + Date.now()).then(r => r.json()).catch(() => [])
+]).then(([junk, brands]) => {
+  BLACKLIST = new Set(junk.map(s => s.toLowerCase().trim()));
+  BRANDS_BLACKLIST = new Set(brands.map(s => s.toLowerCase().trim()));
+  draw();
+});
+
+async function banPhrase(phrase, type, btn) {
   btn.disabled = true;
   btn.textContent = '...';
   try {
-    await fetch(webhookUrl, {
+    await fetch(BLACKLIST_WEBHOOK, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ phrase })
+      body: JSON.stringify({ phrase, type })
     });
-    // Добавляем в локальный блэклист сразу
-    BLACKLIST.add(phrase.toLowerCase().trim());
+    if (type === 'brand') {
+      BRANDS_BLACKLIST.add(phrase.toLowerCase().trim());
+    } else {
+      BLACKLIST.add(phrase.toLowerCase().trim());
+    }
     btn.textContent = '✓';
     btn.style.background = 'var(--green)';
     btn.style.color = 'white';
@@ -358,13 +368,6 @@ async function banPhrase(phrase, btn) {
     btn.disabled = false;
   }
 }
-let asc = { concurrency: true, request_count: false, cards_count: true };
-let BLACKLIST = new Set();
-
-fetch(BLACKLIST_URL + '?t=' + Date.now())
-  .then(r => r.json())
-  .then(arr => { BLACKLIST = new Set(arr.map(s => s.toLowerCase().trim())); draw(); })
-  .catch(() => {});
 
 const isJunk = p => {
   const s = (p||'').toLowerCase().trim();
@@ -381,6 +384,8 @@ const isJunk = p => {
   ];
   return CONTAINS.some(k => s.includes(k));
 };
+
+const isBrandBanned = p => BRANDS_BLACKLIST.has((p||'').toLowerCase().trim());
 
 const fmt = n => Number(n).toLocaleString('ru');
 const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -467,6 +472,7 @@ function draw() {
   const q = document.getElementById('sq').value.toLowerCase();
   let list = niches.filter(n => {
     if (isJunk(n.phrase||'')) return false;
+    if (n.is_brand && isBrandBanned(n.phrase||'')) return false;
     if (brandFilter === 'no_brand' && n.is_brand) return false;
     if (q && !n.phrase?.toLowerCase().includes(q) && !n.category?.toLowerCase().includes(q)) return false;
     return true;
@@ -496,7 +502,6 @@ function draw() {
           <span class="tag ${compCls}">${compLbl}</span>
           ${n.is_brand ? '<span class="tag tag-brand">Бренд</span>' : ''}
         </div>
-      </div>
       <div class="card-phrase">${esc(n.phrase||'')}</div>
       <div class="card-cat">${esc(n.category||'—')}</div>
       <div class="metrics">
@@ -505,9 +510,10 @@ function draw() {
         <div class="metric"><div class="m-lbl">Конкуренция</div><div class="m-val">${c.toFixed(4)}</div></div>
       </div>
       <div class="bar"><div class="bar-fill" style="width:${pct}%;background:${barCol}"></div></div>
-      <div style="margin-top:12px;text-align:right">
-        <button onclick="banPhrase('${esc(n.phrase||'')}',this)" style="font-family:inherit;font-size:11px;font-weight:700;color:var(--t3);background:transparent;border:1.5px solid var(--border);padding:4px 10px;cursor:pointer;letter-spacing:0.3px;text-transform:uppercase;transition:all 0.15s" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--t3)'">🚫 В блэклист</button>
-      </div>
+      <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:12px">
+          <button onclick="banPhrase('${esc(n.phrase||'')}','junk',this)" style="font-family:inherit;font-size:11px;font-weight:700;color:var(--t3);background:transparent;border:1.5px solid var(--border);padding:4px 10px;cursor:pointer;letter-spacing:0.3px;text-transform:uppercase;transition:all 0.15s" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--t3)'">🚫 Мусор</button>
+          <button onclick="banPhrase('${esc(n.phrase||'')}','brand',this)" style="font-family:inherit;font-size:11px;font-weight:700;color:var(--t3);background:transparent;border:1.5px solid var(--border);padding:4px 10px;cursor:pointer;letter-spacing:0.3px;text-transform:uppercase;transition:all 0.15s" onmouseover="this.style.borderColor='var(--purple)';this.style.color='var(--purple)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--t3)'">™ Бренд</button>
+        </div>
     </div>`;
   }).join('');
 }
