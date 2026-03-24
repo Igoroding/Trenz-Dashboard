@@ -324,9 +324,8 @@ footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border
         <button onclick="setSort('cards_count',this)">Карточки</button>
       </div>
       <div class="btn-grp">
-        <button class="on" id="b-all" onclick="setBrand('all',this)">Все</button>
-        <button id="b-no" onclick="setBrand('no_brand',this)">Без брендов</button>
-        <button id="b-yes" onclick="setBrand('brand',this)">Бренды</button>
+        <button class="on" id="b-all" onclick="setBrand('all',this)">Небрендовые</button>
+        <button id="b-yes" onclick="setBrand('brand',this)">+ Бренды</button>
       </div>
       <div class="search-wrap">
         <span class="search-ico">🔍</span>
@@ -353,7 +352,7 @@ const KEY = 'trenz_gist_v2';
 const FIXED = 'https://gist.githubusercontent.com/Igoroding/114c03bcf98115a54fd6e72fecd28656/raw/trenz_data.json';
 const BLACKLIST_URL = 'https://raw.githubusercontent.com/Igoroding/Trenz-Dashboard/main/blacklist.json';
 
-let niches = [], sort = 'concurrency', brandFilter = 'all';
+let niches = [], sort = 'concurrency', brandFilter = 'no_brand';
 let asc = { concurrency: true, request_count: false, cards_count: true };
 let BLACKLIST = new Set();
 
@@ -450,7 +449,7 @@ function render(data) {
     <div class="kpi"><div class="kpi-label">Трендов</div><div class="kpi-val kv-d">${cl.length}</div></div>
     <div class="kpi"><div class="kpi-label">Пустых ≤ 5</div><div class="kpi-val kv-g">${empty}</div></div>
     <div class="kpi"><div class="kpi-label">Свободных ≤ 100</div><div class="kpi-val kv-b">${free}</div></div>
-    <div class="kpi"><div class="kpi-label">Без брендов</div><div class="kpi-val kv-g">${noBrand}</div></div>
+
   `;
 
   if (data.analysis) {
@@ -466,7 +465,6 @@ function draw() {
   let list = niches.filter(n => {
     if (isJunk(n.phrase||'')) return false;
     if (brandFilter === 'no_brand' && n.is_brand) return false;
-    if (brandFilter === 'brand' && !n.is_brand) return false;
     if (q && !n.phrase?.toLowerCase().includes(q) && !n.category?.toLowerCase().includes(q)) return false;
     return true;
   });
@@ -517,7 +515,7 @@ function setSort(f, btn) {
 
 function setBrand(val, btn) {
   brandFilter = val;
-  ['b-all','b-no','b-yes'].forEach(id => document.getElementById(id).classList.remove('on'));
+  ['b-all','b-yes'].forEach(id => document.getElementById(id) && document.getElementById(id).classList.remove('on'));
   btn.classList.add('on');
   draw();
 }
