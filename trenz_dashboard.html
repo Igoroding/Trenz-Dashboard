@@ -502,6 +502,7 @@ function draw() {
           <span class="tag ${compCls}">${compLbl}</span>
           ${n.is_brand ? '<span class="tag tag-brand">Бренд</span>' : ''}
         </div>
+      </div>
       <div class="card-phrase">${esc(n.phrase||'')}</div>
       <div class="card-cat">${esc(n.category||'—')}</div>
       <div class="metrics">
@@ -511,9 +512,9 @@ function draw() {
       </div>
       <div class="bar"><div class="bar-fill" style="width:${pct}%;background:${barCol}"></div></div>
       <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:12px">
-          <button onclick="banPhrase('${esc(n.phrase||'')}','junk',this)" style="font-family:inherit;font-size:11px;font-weight:700;color:var(--t3);background:transparent;border:1.5px solid var(--border);padding:4px 10px;cursor:pointer;letter-spacing:0.3px;text-transform:uppercase;transition:all 0.15s" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--t3)'">🚫 Мусор</button>
-          <button onclick="banPhrase('${esc(n.phrase||'')}','brand',this)" style="font-family:inherit;font-size:11px;font-weight:700;color:var(--t3);background:transparent;border:1.5px solid var(--border);padding:4px 10px;cursor:pointer;letter-spacing:0.3px;text-transform:uppercase;transition:all 0.15s" onmouseover="this.style.borderColor='var(--purple)';this.style.color='var(--purple)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--t3)'">™ Бренд</button>
-        </div>
+        <button onclick="banPhrase('${esc(n.phrase||'')}','junk',this)" style="font-family:inherit;font-size:11px;font-weight:700;color:var(--t3);background:transparent;border:1.5px solid var(--border);padding:4px 10px;cursor:pointer;letter-spacing:0.3px;text-transform:uppercase;transition:all 0.15s" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--t3)'">🚫 Мусор</button>
+        <button onclick="banPhrase('${esc(n.phrase||'')}','brand',this)" style="font-family:inherit;font-size:11px;font-weight:700;color:var(--t3);background:transparent;border:1.5px solid var(--border);padding:4px 10px;cursor:pointer;letter-spacing:0.3px;text-transform:uppercase;transition:all 0.15s" onmouseover="this.style.borderColor='var(--purple)';this.style.color='var(--purple)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--t3)'">™ Бренд</button>
+      </div>
     </div>`;
   }).join('');
 }
