@@ -427,9 +427,16 @@ async function load(url) {
   document.getElementById('main').style.display = 'none';
   document.getElementById('loading').style.display = 'block';
   try {
-    const r = await fetch(url + '?t=' + Date.now());
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    render(await r.json());
+    const t = Date.now();
+    const [dataResp, junkResp, brandsResp] = await Promise.all([
+      fetch(url + '?t=' + t),
+      fetch(BLACKLIST_URL + '?t=' + t).then(r => r.json()).catch(() => []),
+      fetch(BRANDS_BLACKLIST_URL + '?t=' + t).then(r => r.json()).catch(() => [])
+    ]);
+    if (!dataResp.ok) throw new Error('HTTP ' + dataResp.status);
+    BLACKLIST = new Set(junkResp.map(s => s.toLowerCase().trim()));
+    BRANDS_BLACKLIST = new Set(brandsResp.map(s => s.toLowerCase().trim()));
+    render(await dataResp.json());
   } catch(e) {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('setup').style.display = 'block';
