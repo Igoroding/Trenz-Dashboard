@@ -251,6 +251,25 @@ body {
 .empty { grid-column: 1/-1; text-align: center; padding: 80px; color: var(--t3); font-size: 16px; }
 
 footer { margin-top: 60px; padding-top: 24px; border-top: 2px solid var(--text); display: flex; justify-content: space-between; font-size: 12px; color: var(--t3); font-weight: 700; flex-wrap: wrap; gap: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ── SPARKLINE ── */
+.sparkline-wrap {
+  margin: 14px 0 0;
+  position: relative;
+}
+.sparkline-lbl {
+  font-size: 10px; font-weight: 700; color: var(--t3);
+  text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.sparkline-trend { font-size: 11px; font-weight: 700; }
+.sparkline-trend.up   { color: var(--green); }
+.sparkline-trend.down { color: var(--red); }
+.sparkline-trend.flat { color: var(--t3); }
+.sparkline-svg { width: 100%; height: 48px; display: block; overflow: visible; }
+.sparkline-area { opacity: 0.12; }
+.sparkline-line { fill: none; stroke-width: 1.5px; stroke-linejoin: round; stroke-linecap: round; }
+.sparkline-dot  { r: 2.5px; }
 </style>
 </head>
 <body>
@@ -475,6 +494,51 @@ function render(data) {
   draw();
 }
 
+
+function sparkline(history) {
+  if (!history || history.length < 2) return '';
+  const vals = history.map(h => Number(h.requests));
+  const dates = history.map(h => h.week ? h.week.slice(5,10) : '');
+  const min = Math.min(...vals);
+  const max = Math.max(...vals);
+  const range = max - min || 1;
+  const W = 300, H = 48, pad = 4;
+  const x = (i) => pad + (i / (vals.length - 1)) * (W - pad * 2);
+  const y = (v) => H - pad - ((v - min) / range) * (H - pad * 2);
+
+  const pts = vals.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
+  const pathD = vals.map((v, i) => `${i === 0 ? 'M' : 'L'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
+  const areaD = pathD + ` L${x(vals.length-1).toFixed(1)},${H} L${x(0).toFixed(1)},${H} Z`;
+
+  // Тренд
+  const first = vals[0], last = vals[vals.length - 1];
+  const pct = Math.round((last - first) / first * 100);
+  const trendCls = pct > 15 ? 'up' : pct < -15 ? 'down' : 'flat';
+  const trendLbl = pct > 15 ? `+${pct}%` : pct < -15 ? `${pct}%` : 'стабильно';
+  const color = pct > 15 ? 'var(--green)' : pct < -15 ? 'var(--red)' : 'var(--t3)';
+
+  // Подписи первой и последней даты
+  const firstDate = dates[0];
+  const lastDate = dates[dates.length - 1];
+
+  return `<div class="sparkline-wrap">
+    <div class="sparkline-lbl">
+      <span>Динамика запросов</span>
+      <span class="sparkline-trend ${trendCls}">${trendLbl}</span>
+    </div>
+    <svg class="sparkline-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+      <path class="sparkline-area" d="${areaD}" fill="${color}"/>
+      <path class="sparkline-line" d="${pathD}" stroke="${color}"/>
+      ${vals.map((v, i) => i === 0 || i === vals.length-1 || v === max || v === min
+        ? `<circle class="sparkline-dot" cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" fill="${color}"/>`
+        : '').join('')}
+    </svg>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--t3);margin-top:2px;font-family:'IBM Plex Mono',monospace">
+      <span>${firstDate}</span><span>${lastDate}</span>
+    </div>
+  </div>`;
+}
+
 function draw() {
   const q = document.getElementById('sq').value.toLowerCase();
   let list = niches.filter(n => {
@@ -518,6 +582,7 @@ function draw() {
         <div class="metric"><div class="m-lbl">Конкуренция</div><div class="m-val">${c.toFixed(4)}</div></div>
       </div>
       <div class="bar"><div class="bar-fill" style="width:${pct}%;background:${barCol}"></div></div>
+      ${(() => { const h = Array.isArray(n.history) ? n.history : []; return sparkline(h); })()}
       <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:12px">
         <button onclick="banPhrase('${esc(n.phrase||'')}','junk',this)" style="font-family:inherit;font-size:11px;font-weight:700;color:var(--t3);background:transparent;border:1.5px solid var(--border);padding:4px 10px;cursor:pointer;letter-spacing:0.3px;text-transform:uppercase;transition:all 0.15s" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--t3)'">🚫 Мусор</button>
         <button onclick="banPhrase('${esc(n.phrase||'')}','brand',this)" style="font-family:inherit;font-size:11px;font-weight:700;color:var(--t3);background:transparent;border:1.5px solid var(--border);padding:4px 10px;cursor:pointer;letter-spacing:0.3px;text-transform:uppercase;transition:all 0.15s" onmouseover="this.style.borderColor='var(--purple)';this.style.color='var(--purple)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--t3)'">™ Бренд</button>
