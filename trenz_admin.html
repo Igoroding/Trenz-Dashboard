@@ -150,8 +150,8 @@ tr.banned td { opacity: 0.35; }
             <th onclick="setSort('request_count',null)" id="th-req">Запросов/мес <span class="sort-ico">↓</span></th>
             <th onclick="setSort('cards_count',null)" id="th-cards">Карточек <span class="sort-ico">↕</span></th>
             <th onclick="setSort('concurrency',null)" id="th-conc">Конкуренция <span class="sort-ico">↕</span></th>
-            <th>Фраза</th>
-            <th>Категория</th>
+            <th onclick="setSort('phrase',null)" id="th-phrase">Фраза <span class="sort-ico">↕</span></th>
+            <th onclick="setSort('category',null)" id="th-cat">Категория <span class="sort-ico">↕</span></th>
             <th>Тип</th>
             <th style="width:160px">Действия</th>
           </tr>
@@ -230,8 +230,10 @@ function draw() {
     return true;
   });
   list.sort((a, b) => {
-    const av = parseFloat(a[sort]||0), bv = parseFloat(b[sort]||0);
-    return sortAsc ? av - bv : bv - av;
+    const av = a[sort] || '', bv = b[sort] || '';
+    const isStr = sort === 'phrase' || sort === 'category';
+    if (isStr) return sortAsc ? av.localeCompare(bv, 'ru') : bv.localeCompare(av, 'ru');
+    return sortAsc ? parseFloat(av) - parseFloat(bv) : parseFloat(bv) - parseFloat(av);
   });
 
   const empty = list.filter(n => parseInt(n.cards_count||0) <= 5).length;
@@ -297,12 +299,12 @@ async function ban(phrase, type, btn, rowId) {
 
 function setSort(field, btn) {
   if (sort === field) sortAsc = !sortAsc;
-  else { sort = field; sortAsc = field === 'concurrency' || field === 'cards_count'; }
+  else { sort = field; sortAsc = field === 'concurrency' || field === 'cards_count' || field === 'phrase' || field === 'category'; }
   ['th-req','th-cards','th-conc'].forEach(id => {
     const el = document.getElementById(id);
     if (el) { el.classList.remove('sorted'); el.querySelector('.sort-ico').textContent = '↕'; }
   });
-  const map = { request_count: 'th-req', cards_count: 'th-cards', concurrency: 'th-conc' };
+  const map = { request_count: 'th-req', cards_count: 'th-cards', concurrency: 'th-conc', phrase: 'th-phrase', category: 'th-cat' };
   if (map[sort]) {
     const el = document.getElementById(map[sort]);
     if (el) { el.classList.add('sorted'); el.querySelector('.sort-ico').textContent = sortAsc ? '↑' : '↓'; }
