@@ -96,6 +96,13 @@ tr.banned td { opacity: 0.35; }
 .loading { text-align: center; padding: 80px; }
 .spin { width: 24px; height: 24px; margin: 0 auto 12px; border: 3px solid var(--bg3); border-top-color: var(--text); border-radius: 50%; animation: spin 0.7s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* AI BRAND HIGHLIGHT */
+tr.ai-brand td { background: #fff8f0 !important; }
+tr.ai-brand td:first-child::after { content: ''; }
+.ai-brand-badge { font-size: 10px; font-weight: 700; padding: 2px 7px; background: var(--amber-bg); color: var(--amber); text-transform: uppercase; letter-spacing: 0.3px; margin-left: 4px; }
+.ai-progress { font-size: 13px; color: var(--t3); padding: 8px 0; display: none; }
+.ai-progress.show { display: block; }
 </style>
 </head>
 <body>
@@ -134,6 +141,7 @@ tr.banned td { opacity: 0.35; }
         <button onclick="setSort('concurrency',this)">Конкуренция ↑</button>
         <button onclick="setSort('cards_count',this)">Карточки ↑</button>
       </div>
+      <button id="aiBrandBtn" onclick="detectBrands()" style="font-family:inherit;font-size:13px;font-weight:700;background:var(--text);color:white;border:none;padding:8px 18px;cursor:pointer;letter-spacing:0.3px;white-space:nowrap;transition:opacity 0.15s" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1">✦ AI: найти бренды</button>
       <div class="search-wrap">
         <span class="search-ico">🔍</span>
         <input type="text" id="sq" placeholder="Поиск по фразе..." oninput="draw()">
@@ -141,6 +149,7 @@ tr.banned td { opacity: 0.35; }
     </div>
 
     <div class="stats" id="stats"></div>
+    <div class="ai-progress" id="aiProgress"></div>
 
     <div class="tbl-wrap">
       <table>
@@ -322,6 +331,89 @@ function setBrand(val, btn) {
   btn.classList.add('on');
   draw();
 }
+
+const POLZA_URL = 'https://api.polza.ai/api/v1/chat/completions';
+
+async function detectBrands() {
+  const btn = document.getElementById('aiBrandBtn');
+  const progress = document.getElementById('aiProgress');
+  
+  // Get visible rows
+  const rows = Array.from(document.querySelectorAll('#tbody tr')).filter(r => r.style.display !== 'none');
+  if (!rows.length) return;
+  
+  btn.disabled = true;
+  btn.textContent = '⏳ Анализирую...';
+  progress.className = 'ai-progress show';
+  progress.textContent = 'Отправляю запросы на анализ...';
+
+  // Get phrases from visible rows (max 200 at a time)
+  const phrases = [];
+  rows.slice(0, 200).forEach(row => {
+    const phraseCell = row.querySelector('.td-phrase');
+    if (phraseCell) phrases.push(phraseCell.textContent.trim());
+  });
+
+  const CHUNK = 100;
+  let totalFound = 0;
+
+  for (let i = 0; i < phrases.length; i += CHUNK) {
+    const chunk = phrases.slice(i, i + CHUNK);
+    progress.textContent = `Анализирую ${i + 1}–${Math.min(i + CHUNK, phrases.length)} из ${phrases.length}...`;
+
+    try {
+      const resp = await fetch(POLZA_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'anthropic/claude-sonnet-4.6',
+          max_tokens: 1000,
+          messages: [{
+            role: 'user',
+            content: `Из этого списка поисковых запросов с Wildberries выдели только те, которые являются НАЗВАНИЯМИ БРЕНДОВ (торговых марок, компаний, конкретных продуктов с названием). Не включай обычные товарные запросы.
+
+Список:
+${chunk.map((p, idx) => `${idx+1}. ${p}`).join('
+')}
+
+Ответь ТОЛЬКО JSON массивом с номерами брендов, например: [1, 5, 12]
+Если брендов нет — ответь: []`
+          }]
+        })
+      });
+
+      const data = await resp.json();
+      const text = data.choices?.[0]?.message?.content || '[]';
+      const match = text.match(/\[[\d,\s]*\]/);
+      if (match) {
+        const indices = JSON.parse(match[0]);
+        indices.forEach(idx => {
+          const phrase = chunk[idx - 1];
+          if (!phrase) return;
+          // Find and highlight the row
+          rows.forEach(row => {
+            const cell = row.querySelector('.td-phrase');
+            if (cell && cell.textContent.trim() === phrase) {
+              row.classList.add('ai-brand');
+              const actCell = row.querySelector('.td-actions');
+              if (actCell && !actCell.querySelector('.ai-brand-badge')) {
+                actCell.insertAdjacentHTML('afterbegin', '<span class="ai-brand-badge">AI: бренд</span>');
+              }
+              totalFound++;
+            }
+          });
+        });
+      }
+    } catch(e) {
+      console.error('Polza AI error:', e);
+    }
+  }
+
+  btn.disabled = false;
+  btn.textContent = '✦ AI: найти бренды';
+  progress.textContent = `✅ Найдено вероятных брендов: ${totalFound}. Подсвечены оранжевым.`;
+}
+
 </script>
 </body>
 </html>
