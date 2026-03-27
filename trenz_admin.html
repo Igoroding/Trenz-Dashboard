@@ -364,7 +364,7 @@ async function detectBrands() {
     try {
       const resp = await fetch(POLZA_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer pza_kkPlJ_NCRhQPYYH_0wnF0cqVOucCphmo' },
         body: JSON.stringify({
           model: 'anthropic/claude-sonnet-4.6',
           max_tokens: 1000,
