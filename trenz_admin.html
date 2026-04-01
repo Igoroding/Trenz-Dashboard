@@ -103,6 +103,39 @@ tr.ai-brand td:first-child::after { content: ''; }
 .ai-brand-badge { font-size: 10px; font-weight: 700; padding: 2px 7px; background: var(--amber-bg); color: var(--amber); text-transform: uppercase; letter-spacing: 0.3px; margin-left: 4px; }
 .ai-progress { font-size: 13px; color: var(--t3); padding: 8px 0; display: none; }
 .ai-progress.show { display: block; }
+
+/* ── DB STATUS ── */
+.db-block {
+  border: 2px solid var(--text);
+  margin-bottom: 20px;
+  display: none;
+}
+.db-header {
+  padding: 14px 20px;
+  background: var(--text); color: white;
+  font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.db-body {
+  padding: 16px 20px;
+  display: flex; gap: 32px; flex-wrap: wrap; align-items: center;
+}
+.db-item { font-size: 13px; }
+.db-item-label { color: var(--t3); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.db-item-val { font-weight: 600; color: var(--text); }
+.db-item-val.current { color: var(--green); }
+.db-weeks { display: flex; gap: 6px; flex-wrap: wrap; }
+.db-week {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; padding: 3px 8px;
+  background: var(--bg2); border: 1px solid var(--border);
+  color: var(--t2);
+}
+.db-week.current-week {
+  background: var(--green-bg); border-color: var(--green);
+  color: var(--green); font-weight: 700;
+}
 </style>
 </head>
 <body>
@@ -128,7 +161,28 @@ tr.ai-brand td:first-child::after { content: ''; }
     </div>
   </div>
 
-  <div id="loadingEl" class="loading"><div class="spin"></div><div style="color:var(--t3);font-size:14px;">Загрузка данных...</div></div>
+    <div class="db-block" id="dbBlock">
+    <div class="db-header">
+      <span>База данных</span>
+      <span id="dbUpdated" style="font-weight:400;opacity:0.7"></span>
+    </div>
+    <div class="db-body">
+      <div class="db-item">
+        <div class="db-item-label">Текущая неделя</div>
+        <div class="db-item-val current" id="dbCurrentWeek">—</div>
+      </div>
+      <div class="db-item">
+        <div class="db-item-label">Загружено недель</div>
+        <div class="db-item-val" id="dbWeeksCount">—</div>
+      </div>
+      <div class="db-item" style="flex:1">
+        <div class="db-item-label">Недели в истории</div>
+        <div class="db-weeks" id="dbWeeksList"></div>
+      </div>
+    </div>
+  </div>
+  <div id="loadingEl"
+ class="loading"><div class="spin"></div><div style="color:var(--t3);font-size:14px;">Загрузка данных...</div></div>
 
   <div id="mainContent" style="display:none">
     <div class="toolbar">
@@ -212,6 +266,20 @@ async function loadAll() {
     if (data.updated_at) {
       const d = new Date(data.updated_at);
       document.getElementById('ts').textContent = d.toLocaleString('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+    }
+    // DB status block
+    const dbBlock = document.getElementById('dbBlock');
+    if (dbBlock) {
+      dbBlock.style.display = 'block';
+      const currentWeek = data.current_week || data.week_date || '—';
+      document.getElementById('dbCurrentWeek').textContent = currentWeek;
+      const weeks = data.weeks_loaded || (data.week_date ? [data.week_date] : []);
+      document.getElementById('dbWeeksCount').textContent = weeks.length;
+      document.getElementById('dbUpdated').textContent = data.updated_at ? new Date(data.updated_at).toLocaleString('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) : '';
+      const weeksList = document.getElementById('dbWeeksList');
+      weeksList.innerHTML = weeks.map(w => 
+        `<span class="db-week${w === currentWeek ? ' current-week' : ''}">${w}</span>`
+      ).join('');
     }
   }
   document.getElementById('loadingEl').style.display = 'none';
