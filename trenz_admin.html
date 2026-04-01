@@ -117,25 +117,35 @@ tr.ai-brand td:first-child::after { content: ''; }
   text-transform: uppercase; letter-spacing: 1px;
   display: flex; align-items: center; justify-content: space-between;
 }
-.db-body {
-  padding: 16px 20px;
-  display: flex; gap: 32px; flex-wrap: wrap; align-items: center;
+.db-body { padding: 16px 20px; }
+.db-meta { display: flex; gap: 24px; margin-bottom: 16px; flex-wrap: wrap; }
+.db-meta-item { font-size: 13px; color: var(--t3); }
+.db-meta-item b { color: var(--text); font-weight: 600; }
+.db-cal-month { margin-bottom: 14px; }
+.db-cal-month:last-child { margin-bottom: 0; }
+.db-cal-month-label {
+  font-size: 10px; font-weight: 700; color: var(--t3);
+  text-transform: uppercase; letter-spacing: 1.5px;
+  margin-bottom: 6px;
 }
-.db-item { font-size: 13px; }
-.db-item-label { color: var(--t3); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-.db-item-val { font-weight: 600; color: var(--text); }
-.db-item-val.current { color: var(--green); }
-.db-weeks { display: flex; gap: 6px; flex-wrap: wrap; }
-.db-week {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px; padding: 3px 8px;
-  background: var(--bg2); border: 1px solid var(--border);
-  color: var(--t2);
+.db-cal-weeks { display: flex; gap: 6px; flex-wrap: wrap; }
+.db-week-chip {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 7px 12px;
+  border: 1.5px solid var(--border);
+  background: var(--bg2);
+  font-size: 11px; color: var(--t3);
+  min-width: 56px; cursor: default;
 }
-.db-week.current-week {
-  background: var(--green-bg); border-color: var(--green);
-  color: var(--green); font-weight: 700;
+.db-week-chip .chip-day { font-size: 20px; font-weight: 700; color: var(--text); line-height: 1.1; font-family: 'IBM Plex Mono', monospace; }
+.db-week-chip.current-week {
+  border-color: var(--green);
+  background: var(--green-bg);
+  color: var(--green);
 }
+.db-week-chip.current-week .chip-day { color: var(--green); }
+.db-legend { display: flex; gap: 16px; margin-top: 12px; font-size: 11px; color: var(--t3); align-items: center; padding-top: 12px; border-top: 1px solid var(--border); }
+.db-legend-dot { width: 10px; height: 10px; flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -167,17 +177,15 @@ tr.ai-brand td:first-child::after { content: ''; }
       <span id="dbUpdated" style="font-weight:400;opacity:0.7"></span>
     </div>
     <div class="db-body">
-      <div class="db-item">
-        <div class="db-item-label">Текущая неделя</div>
-        <div class="db-item-val current" id="dbCurrentWeek">—</div>
+      <div class="db-meta">
+        <div class="db-meta-item">Текущая неделя: <b id="dbCurrentWeek">—</b></div>
+        <div class="db-meta-item">Загружено недель: <b id="dbWeeksCount">—</b></div>
       </div>
-      <div class="db-item">
-        <div class="db-item-label">Загружено недель</div>
-        <div class="db-item-val" id="dbWeeksCount">—</div>
-      </div>
-      <div class="db-item" style="flex:1">
-        <div class="db-item-label">Недели в истории</div>
-        <div class="db-weeks" id="dbWeeksList"></div>
+      <div id="dbMonthsGrid"></div>
+      <div class="db-legend">
+        <span class="db-legend-dot" style="background:var(--bg2);border:1.5px solid var(--border);display:inline-block"></span> загружена
+        &nbsp;
+        <span class="db-legend-dot" style="background:var(--green-bg);border:1.5px solid var(--green);display:inline-block"></span> текущая
       </div>
     </div>
   </div>
@@ -271,15 +279,41 @@ async function loadAll() {
     const dbBlock = document.getElementById('dbBlock');
     if (dbBlock) {
       dbBlock.style.display = 'block';
-      const currentWeek = data.current_week || data.week_date || '—';
-      document.getElementById('dbCurrentWeek').textContent = currentWeek;
+      const currentWeek = data.current_week || data.week_date || null;
       const weeks = data.weeks_loaded || (data.week_date ? [data.week_date] : []);
+      document.getElementById('dbCurrentWeek').textContent = currentWeek || '—';
       document.getElementById('dbWeeksCount').textContent = weeks.length;
       document.getElementById('dbUpdated').textContent = data.updated_at ? new Date(data.updated_at).toLocaleString('ru', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) : '';
-      const weeksList = document.getElementById('dbWeeksList');
-      weeksList.innerHTML = weeks.map(w => 
-        `<span class="db-week${w === currentWeek ? ' current-week' : ''}">${w}</span>`
-      ).join('');
+      
+      const MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+      const byMonth = {};
+      weeks.forEach(w => {
+        const [y, m] = w.split('-');
+        const key = y + '-' + m;
+        if (!byMonth[key]) byMonth[key] = [];
+        byMonth[key].push(w);
+      });
+      const grid = document.getElementById('dbMonthsGrid');
+      grid.innerHTML = '';
+      Object.keys(byMonth).sort().forEach(key => {
+        const [y, m] = key.split('-');
+        const label = MONTHS[parseInt(m)-1] + ' ' + y;
+        const monthDiv = document.createElement('div');
+        monthDiv.className = 'db-cal-month';
+        monthDiv.innerHTML = '<div class="db-cal-month-label">' + label + '</div>';
+        const weeksRow = document.createElement('div');
+        weeksRow.className = 'db-cal-weeks';
+        byMonth[key].sort().forEach(w => {
+          const day = parseInt(w.split('-')[2]);
+          const chip = document.createElement('div');
+          chip.className = 'db-week-chip' + (w === currentWeek ? ' current-week' : '');
+          chip.title = w;
+          chip.innerHTML = '<span class="chip-day">' + day + '</span><span>' + (w === currentWeek ? 'текущая' : 'загружена') + '</span>';
+          weeksRow.appendChild(chip);
+        });
+        monthDiv.appendChild(weeksRow);
+        grid.appendChild(monthDiv);
+      });
     }
   }
   document.getElementById('loadingEl').style.display = 'none';
