@@ -446,131 +446,6 @@
       gap: 14px;
     }
 
-    .finance-board {
-      display: grid;
-      gap: 10px;
-    }
-
-    .finance-intro {
-      padding: 16px 18px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      background: linear-gradient(135deg, rgba(20, 107, 88, 0.08), rgba(109, 185, 255, 0.07)), #fff;
-      font-size: 18px;
-      line-height: 1.45;
-      color: var(--muted);
-      font-weight: 700;
-    }
-
-    .finance-grid {
-      display: grid;
-      gap: 10px;
-    }
-
-    .finance-card {
-      position: relative;
-      padding: 18px;
-      border-radius: 24px;
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 252, 249, 0.95));
-      overflow: hidden;
-      box-shadow: 0 10px 24px rgba(16, 43, 37, 0.04);
-    }
-
-    .finance-card::before {
-      content: "";
-      position: absolute;
-      inset: auto -10% -28% auto;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      opacity: 0.18;
-      pointer-events: none;
-    }
-
-    .finance-card.green::before {
-      background: radial-gradient(circle, var(--mint), transparent 68%);
-    }
-
-    .finance-card.sky::before {
-      background: radial-gradient(circle, var(--sky), transparent 68%);
-    }
-
-    .finance-card.peach::before {
-      background: radial-gradient(circle, var(--peach), transparent 68%);
-    }
-
-    .finance-card.rose::before {
-      background: radial-gradient(circle, var(--rose), transparent 68%);
-    }
-
-    .finance-card.ink {
-      background: linear-gradient(160deg, #103f36, #16322c 100%);
-      border-color: rgba(255, 255, 255, 0.08);
-      color: #f4fbf9;
-    }
-
-    .finance-card.ink::before {
-      background: radial-gradient(circle, rgba(76, 201, 166, 0.28), transparent 68%);
-      opacity: 1;
-    }
-
-    .finance-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: flex-start;
-      margin-bottom: 12px;
-    }
-
-    .finance-name {
-      font-size: 18px;
-      line-height: 1.2;
-      font-weight: 800;
-      max-width: 12ch;
-    }
-
-    .finance-share {
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: rgba(10, 18, 16, 0.06);
-      font-size: 13px;
-      line-height: 1;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .finance-card.ink .finance-share {
-      background: rgba(255, 255, 255, 0.14);
-      color: #f4fbf9;
-    }
-
-    .finance-value {
-      font-size: 34px;
-      line-height: 0.95;
-      letter-spacing: -0.06em;
-      font-weight: 800;
-      margin-bottom: 10px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .finance-text {
-      font-size: 16px;
-      line-height: 1.42;
-      color: var(--muted);
-      font-weight: 700;
-      max-width: 24ch;
-      position: relative;
-      z-index: 1;
-    }
-
-    .finance-card.ink .finance-text,
-    .finance-card.ink .finance-name,
-    .finance-card.ink .finance-value {
-      color: #f4fbf9;
-    }
-
     .pnl,
     .pnl-summary {
       border: 1px solid var(--line);
@@ -751,9 +626,6 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .finance-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
     }
   </style>
 </head>
@@ -763,11 +635,13 @@
       <div class="eyebrow">Короткая версия</div>
       <div class="hero-grid">
         <div>
-          <h1>Новый контур роста</h1>
+          <h1>Строим новую систему роста</h1>
           <p class="lead">
-            <strong>Trenz</strong> находит свободные ниши.
-            <strong>Тестовый магазин</strong> проверяет.
-            <strong>Основные магазины</strong> масштабируют.
+            Нужна не еще одна точка, а система, в которой
+            <strong>каждый элемент усиливает остальные</strong>:
+            аналитика находит шанс,
+            тест быстро проверяет,
+            сильные товары идут в масштаб.
           </p>
           <div class="concept-panel">
             <div class="concept-title">Пересборка системы</div>
@@ -783,19 +657,19 @@
         <div class="signal-strip">
           <div class="signal-card">
             <div class="signal-title">Сигнал</div>
-            <div class="signal-text">Trenz показывает спрос, тренд и конкуренцию.</div>
+            <div class="signal-text">Trenz показывает, где спрос растет, а конкуренция еще не перегрета.</div>
           </div>
           <div class="signal-card">
             <div class="signal-title">Проверка</div>
-            <div class="signal-text">Третий магазин быстро проверяет экономику товара.</div>
+            <div class="signal-text">Тестовый магазин быстро проверяет товар в реальных продажах.</div>
           </div>
           <div class="signal-card">
             <div class="signal-title">Масштаб</div>
-            <div class="signal-text">Сильные товары идут в основные магазины.</div>
+            <div class="signal-text">Сильные товары усиливают основные магазины.</div>
           </div>
           <div class="signal-card">
-            <div class="signal-title">Обратная связь</div>
-            <div class="signal-text">Реальные запуски улучшают Trenz и помогают продавать подписки.</div>
+            <div class="signal-title">Усиление</div>
+            <div class="signal-text">Обратная связь улучшает Trenz, а значит усиливает всю систему целиком.</div>
           </div>
         </div>
       </div>
@@ -814,7 +688,7 @@
         <div class="metric">
           <div class="metric-label">Воронка за лето</div>
           <div class="metric-value">10–20</div>
-          <div class="metric-text">тестов, чтобы получить 3–4 товара</div>
+          <div class="metric-text">тестов, чтобы получить 5–7 высокодоходных товаров</div>
         </div>
         <div class="metric">
           <div class="metric-label">Еще два эффекта</div>
@@ -875,7 +749,7 @@
           <div class="role-value">ядро</div>
         </div>
         <div class="role-item">
-          <div class="role-name">Собирает 10–20 тестов за лето</div>
+          <div class="role-name">Собирает 10–20 тестов за лето, чтобы получить 5–7 высокодоходных товаров</div>
           <div class="role-value">темп</div>
         </div>
         <div class="role-item">
@@ -887,55 +761,9 @@
 
     <section class="section">
       <div class="section-tag">Инфографика</div>
-      <h2>Из чего складывается 10 млн ₽</h2>
+      <h2>ОПиУ</h2>
 
       <div class="finance-shell">
-        <div class="finance-board">
-          <div class="finance-intro">5 главных слоев: товар, логистика, комиссия, операционные расходы и прибыль.</div>
-          <div class="finance-grid">
-            <div class="finance-card peach">
-              <div class="finance-top">
-                <div class="finance-name">Себестоимость</div>
-                <div class="finance-share">15%</div>
-              </div>
-              <div class="finance-value">1,5 млн ₽</div>
-              <div class="finance-text">Базовая закупка товара и производственная часть.</div>
-            </div>
-            <div class="finance-card sky">
-              <div class="finance-top">
-                <div class="finance-name">Логистика</div>
-                <div class="finance-share">15%</div>
-              </div>
-              <div class="finance-value">1,5 млн ₽</div>
-              <div class="finance-text">Доставка, перемещение и вся логистическая нагрузка.</div>
-            </div>
-            <div class="finance-card ink">
-              <div class="finance-top">
-                <div class="finance-name">Комиссии Wildberries</div>
-                <div class="finance-share">25%</div>
-              </div>
-              <div class="finance-value">2,5 млн ₽</div>
-              <div class="finance-text">Самый тяжелый слой экономики в текущей модели.</div>
-            </div>
-            <div class="finance-card rose">
-              <div class="finance-top">
-                <div class="finance-name">Операционные расходы</div>
-                <div class="finance-share">17,5%</div>
-              </div>
-              <div class="finance-value">1,752 млн ₽</div>
-              <div class="finance-text">Реклама, команда, хранение, сервисы, налоги и управление.</div>
-            </div>
-            <div class="finance-card green">
-              <div class="finance-top">
-                <div class="finance-name">Операционная прибыль</div>
-                <div class="finance-share">24,5%</div>
-              </div>
-              <div class="finance-value">2,448 млн ₽</div>
-              <div class="finance-text">То, что остается после всех расходов при обороте 10 млн ₽.</div>
-            </div>
-          </div>
-        </div>
-
         <div>
           <div class="pnl-summary">
             <div class="summary-row total">
