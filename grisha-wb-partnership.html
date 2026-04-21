@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Гриша — контур роста</title>
+  <meta
+    name="description"
+    content="Короткий лендинг для Гриши: новая схема роста, роль, цели на 90 дней и ОПиУ в цифрах."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #eef4f1;
+      --paper: rgba(252, 255, 253, 0.96);
+      --card: rgba(255, 255, 255, 0.82);
+      --card-strong: rgba(255, 255, 255, 0.92);
+      --text: #0a1210;
+      --muted: #36433f;
+      --muted-2: #566660;
+      --line: rgba(10, 18, 16, 0.10);
+      --line-strong: rgba(10, 18, 16, 0.18);
+      --green: #146b58;
+      --green-soft: rgba(20, 107, 88, 0.08);
+      --mint: #3fe0b4;
+      --teal: #0fbaa0;
+      --ink: #102b25;
+      --sky: #6db9ff;
+      --lavender: #97a7ff;
+      --peach: #ffbe65;
+      --rose: #ff8ea2;
+      --sun: #ffe16a;
+      --shadow: 0 22px 56px rgba(18, 63, 54, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --max: 1080px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Manrope", system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(20, 107, 88, 0.08), transparent 20%),
+        radial-gradient(circle at top right, rgba(76, 201, 166, 0.10), transparent 22%),
+        linear-gradient(135deg, rgba(26, 165, 138, 0.03) 0, rgba(26, 165, 138, 0.03) 1px, transparent 1px, transparent 24px),
+        linear-gradient(180deg, #f9fdfb 0%, var(--bg) 100%);
+      background-size: auto, auto, 24px 24px, auto;
+      -webkit-font-smoothing: antialiased;
+      padding: 12px;
+    }
+
+    .page {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero,
+    .section,
+    .footer {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 22px 18px 18px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 8px;
+      background: linear-gradient(90deg, var(--green) 0 30%, var(--teal) 30% 62%, var(--sky) 62% 80%, var(--ink) 80% 100%);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 20px 20px auto auto;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 55%),
+        radial-gradient(circle, rgba(76, 201, 166, 0.18), rgba(76, 201, 166, 0) 72%);
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    .section,
+    .footer {
+      padding: 18px;
+    }
+
+    .eyebrow,
+    .section-tag,
+    .metric-label,
+    .table-head {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow,
+    .section-tag {
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: clamp(38px, 8.8vw, 88px);
+      line-height: 0.92;
+      letter-spacing: -0.075em;
+      max-width: 8.2ch;
+      margin-bottom: 16px;
+    }
+
+    .lead {
+      font-size: 21px;
+      line-height: 1.48;
+      color: var(--muted);
+      max-width: 26ch;
+      font-weight: 600;
+    }
+
+    .concept-panel {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(20, 107, 88, 0.14);
+      background:
+        linear-gradient(135deg, rgba(20, 107, 88, 0.10), rgba(109, 185, 255, 0.06)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 252, 250, 0.96));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
+    }
+
+    .concept-title {
+      font-size: 24px;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .concept-text {
+      font-size: 18px;
+      line-height: 1.48;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .signal-strip {
+      display: grid;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .signal-card {
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(246, 252, 250, 0.96)),
+        linear-gradient(135deg, rgba(76, 201, 166, 0.04), rgba(20, 107, 88, 0.015));
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 16px 16px 18px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    }
+
+    .signal-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 6px;
+      background: var(--green);
+    }
+
+    .signal-card:nth-child(2)::before {
+      background: var(--teal);
+    }
+
+    .signal-card:nth-child(3)::before {
+      background: var(--ink);
+    }
+
+    .signal-card:nth-child(4)::before {
+      background: var(--sky);
+    }
+
+    .signal-title {
+      font-size: 24px;
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .signal-text {
+      font-size: 18px;
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .hero-metrics {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .metric {
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 252, 250, 0.95));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric::after {
+      content: "";
+      position: absolute;
+      right: -28px;
+      bottom: -36px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      opacity: 0.18;
+      pointer-events: none;
+      background: radial-gradient(circle, var(--mint), transparent 68%);
+    }
+
+    .metric-label {
+      color: var(--muted-2);
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      font-size: clamp(30px, 7.2vw, 52px);
+      line-height: 0.95;
+      letter-spacing: -0.07em;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .metric-text {
+      font-size: 18px;
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    h2 {
+      font-size: clamp(28px, 6vw, 46px);
+      line-height: 0.97;
+      letter-spacing: -0.055em;
+      margin-bottom: 12px;
+    }
+
+    .section-copy {
+      font-size: 18px;
+      line-height: 1.48;
+      color: var(--muted);
+      max-width: 39ch;
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .logic-grid,
+    .summary-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .card {
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 252, 250, 0.95));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
+    }
+
+    .card-strong {
+      background: linear-gradient(145deg, #103f36, #146b58 55%, #1aa58a 100%);
+      color: #f7f3eb;
+      border-color: rgba(255, 255, 255, 0.06);
+      box-shadow: 0 18px 40px rgba(20, 107, 88, 0.18);
+    }
+
+    .card-title {
+      font-size: 22px;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .card-text {
+      font-size: 18px;
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .card-strong .card-text,
+    .card-strong .card-title {
+      color: #f7f3eb;
+    }
+
+    .system {
+      display: grid;
+      gap: 10px;
+    }
+
+    .system-row {
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 252, 250, 0.95));
+      position: relative;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
+    }
+
+    .system-row::after {
+      content: "";
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 0;
+      height: 1px;
+      background: linear-gradient(90deg, var(--green), transparent);
+      opacity: 0;
+    }
+
+    .system-row:not(:last-child)::after {
+      opacity: 1;
+    }
+
+    .system-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .system-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(20, 107, 88, 0.16), rgba(109, 185, 255, 0.12));
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .system-tag {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+    }
+
+    .system-title {
+      font-size: 24px;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .system-text {
+      font-size: 18px;
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .role-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .role-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: start;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 252, 250, 0.95));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
+    }
+
+    .role-name {
+      font-size: 20px;
+      line-height: 1.35;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .role-value {
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 800;
+      color: var(--ink);
+      text-align: right;
+      white-space: nowrap;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(20, 107, 88, 0.12), rgba(109, 185, 255, 0.10));
+    }
+
+    .finance-shell {
+      display: grid;
+      gap: 14px;
+    }
+
+    .finance-board {
+      display: grid;
+      gap: 10px;
+    }
+
+    .finance-intro {
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, rgba(20, 107, 88, 0.08), rgba(109, 185, 255, 0.07)), #fff;
+      font-size: 18px;
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .finance-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .finance-card {
+      position: relative;
+      padding: 18px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 252, 249, 0.95));
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(16, 43, 37, 0.04);
+    }
+
+    .finance-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -10% -28% auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .finance-card.green::before {
+      background: radial-gradient(circle, var(--mint), transparent 68%);
+    }
+
+    .finance-card.sky::before {
+      background: radial-gradient(circle, var(--sky), transparent 68%);
+    }
+
+    .finance-card.peach::before {
+      background: radial-gradient(circle, var(--peach), transparent 68%);
+    }
+
+    .finance-card.rose::before {
+      background: radial-gradient(circle, var(--rose), transparent 68%);
+    }
+
+    .finance-card.ink {
+      background: linear-gradient(160deg, #103f36, #16322c 100%);
+      border-color: rgba(255, 255, 255, 0.08);
+      color: #f4fbf9;
+    }
+
+    .finance-card.ink::before {
+      background: radial-gradient(circle, rgba(76, 201, 166, 0.28), transparent 68%);
+      opacity: 1;
+    }
+
+    .finance-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .finance-name {
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 800;
+      max-width: 12ch;
+    }
+
+    .finance-share {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(10, 18, 16, 0.06);
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .finance-card.ink .finance-share {
+      background: rgba(255, 255, 255, 0.14);
+      color: #f4fbf9;
+    }
+
+    .finance-value {
+      font-size: 34px;
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      font-weight: 800;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .finance-text {
+      font-size: 16px;
+      line-height: 1.42;
+      color: var(--muted);
+      font-weight: 700;
+      max-width: 24ch;
+      position: relative;
+      z-index: 1;
+    }
+
+    .finance-card.ink .finance-text,
+    .finance-card.ink .finance-name,
+    .finance-card.ink .finance-value {
+      color: #f4fbf9;
+    }
+
+    .pnl,
+    .pnl-summary {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 252, 250, 0.95));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
+    }
+
+    .pnl-row,
+    .summary-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      padding: 14px 15px;
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+    }
+
+    .pnl-row:last-child,
+    .summary-row:last-child {
+      border-bottom: none;
+    }
+
+    .pnl-row span:first-child,
+    .pnl-row strong:first-child {
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .pnl-row span:last-child,
+    .pnl-row strong:last-child {
+      font-size: 18px;
+      line-height: 1.2;
+      white-space: nowrap;
+      text-align: right;
+      font-weight: 800;
+    }
+
+    .pnl-row.total {
+      background: rgba(18, 17, 15, 0.03);
+    }
+
+    .pnl-row.profit {
+      background: rgba(20, 107, 88, 0.08);
+      color: var(--green);
+    }
+
+    details.pnl-details {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 252, 250, 0.95));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
+      overflow: hidden;
+    }
+
+    details.pnl-details summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 16px 18px;
+    }
+
+    details.pnl-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-head {
+      display: grid;
+      gap: 4px;
+    }
+
+    .summary-title {
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .summary-title::after {
+      content: "+";
+      font-size: 28px;
+      line-height: 1;
+      color: var(--green);
+      flex: 0 0 auto;
+      transition: transform 180ms ease;
+    }
+
+    details.pnl-details[open] .summary-title::after {
+      content: "−";
+    }
+
+    .summary-text {
+      font-size: 16px;
+      line-height: 1.45;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .summary-section {
+      padding: 0 18px 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .summary-caption {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+    }
+
+    .summary-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.84);
+    }
+
+    .summary-row span:first-child,
+    .summary-row strong:first-child {
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .summary-row span:last-child,
+    .summary-row strong:last-child {
+      font-size: 16px;
+      line-height: 1.2;
+      text-align: right;
+      white-space: nowrap;
+      font-weight: 800;
+    }
+
+    .summary-row.total {
+      background: rgba(18, 17, 15, 0.03);
+    }
+
+    .footer {
+      font-size: 18px;
+      line-height: 1.48;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .footer strong {
+      color: var(--text);
+    }
+
+    @media (min-width: 760px) {
+      body {
+        padding: 18px;
+      }
+
+      .hero,
+      .section,
+      .footer {
+        padding: 26px;
+      }
+
+      .hero-grid {
+        grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+        align-items: end;
+      }
+
+      .hero-metrics,
+      .logic-grid,
+      .summary-grid,
+      .finance-shell {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .system {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .finance-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div class="eyebrow">Короткая версия</div>
+      <div class="hero-grid">
+        <div>
+          <h1>Новый контур роста</h1>
+          <p class="lead">
+            <strong>Trenz</strong> находит свободные ниши.
+            <strong>Тестовый магазин</strong> проверяет.
+            <strong>Основные магазины</strong> масштабируют.
+          </p>
+          <div class="concept-panel">
+            <div class="concept-title">Пересборка системы</div>
+            <div class="concept-text">
+              <strong>3 магазина на Wildberries</strong>,
+              <strong>1 магазин на Ozon</strong>
+              и <strong>Trenz</strong> работают как одна система:
+              общий ИИ-мозг, единая логистика, единая фабрика карточек, единая работа с отзывами и один конвейер тестов.
+            </div>
+          </div>
+        </div>
+
+        <div class="signal-strip">
+          <div class="signal-card">
+            <div class="signal-title">Сигнал</div>
+            <div class="signal-text">Trenz показывает спрос, тренд и конкуренцию.</div>
+          </div>
+          <div class="signal-card">
+            <div class="signal-title">Проверка</div>
+            <div class="signal-text">Третий магазин быстро проверяет экономику товара.</div>
+          </div>
+          <div class="signal-card">
+            <div class="signal-title">Масштаб</div>
+            <div class="signal-text">Сильные товары идут в основные магазины.</div>
+          </div>
+          <div class="signal-card">
+            <div class="signal-title">Обратная связь</div>
+            <div class="signal-text">Реальные запуски улучшают Trenz и помогают продавать подписки.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-metrics">
+        <div class="metric">
+          <div class="metric-label">Цель за 90 дней</div>
+          <div class="metric-value">10 млн ₽</div>
+          <div class="metric-text">оборот в месяц</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Операционная прибыль</div>
+          <div class="metric-value">2,448 млн ₽</div>
+          <div class="metric-text">при обороте 10 млн ₽</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Воронка за лето</div>
+          <div class="metric-value">10–20</div>
+          <div class="metric-text">тестов, чтобы получить 3–4 товара</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Еще два эффекта</div>
+          <div class="metric-value">Меньше сезонности</div>
+          <div class="metric-text">плюс рост подписок Trenz</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-tag">Система</div>
+      <h2>Как это работает</h2>
+      <p class="section-copy">
+        Логика простая: нашли нишу, быстро проверили, сильное отправили в масштаб, слабое закрыли. Все, что происходит в тестах, улучшает Trenz.
+      </p>
+      <div class="system">
+        <div class="system-row">
+          <div class="system-top">
+            <div class="system-number">1</div>
+            <div class="system-tag">Поиск</div>
+          </div>
+          <div class="system-title">Trenz отбирает ниши</div>
+          <div class="system-text">Берем ниши, где спрос растет, а конкуренция еще не перегрета.</div>
+        </div>
+        <div class="system-row">
+          <div class="system-top">
+            <div class="system-number">2</div>
+            <div class="system-tag">Сборка</div>
+          </div>
+          <div class="system-title">Гриша собирает запуск</div>
+          <div class="system-text">Товар, поставщик, партия, запуск, при необходимости производство.</div>
+        </div>
+        <div class="system-row">
+          <div class="system-top">
+            <div class="system-number">3</div>
+            <div class="system-tag">Тест</div>
+          </div>
+          <div class="system-title">Тестовый магазин проверяет</div>
+          <div class="system-text">Смотрим продажи, маржу, возвраты и понятность масштаба.</div>
+        </div>
+        <div class="system-row">
+          <div class="system-top">
+            <div class="system-number">4</div>
+            <div class="system-tag">Рост</div>
+          </div>
+          <div class="system-title">Победители идут в масштаб</div>
+          <div class="system-text">Товар идет в основные магазины, а обратная связь улучшает Trenz и его подписочную ценность.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-tag">Роль Гриши</div>
+      <h2>Роль Гриши</h2>
+      <div class="role-list">
+        <div class="role-item">
+          <div class="role-name">Отвечает за товар, поставщиков, запуск и производство в перспективе</div>
+          <div class="role-value">ядро</div>
+        </div>
+        <div class="role-item">
+          <div class="role-name">Собирает 10–20 тестов за лето</div>
+          <div class="role-value">темп</div>
+        </div>
+        <div class="role-item">
+          <div class="role-name">Дает обратную связь по Trenz на реальных запусках</div>
+          <div class="role-value">петля</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-tag">Инфографика</div>
+      <h2>Из чего складывается 10 млн ₽</h2>
+
+      <div class="finance-shell">
+        <div class="finance-board">
+          <div class="finance-intro">5 главных слоев: товар, логистика, комиссия, операционные расходы и прибыль.</div>
+          <div class="finance-grid">
+            <div class="finance-card peach">
+              <div class="finance-top">
+                <div class="finance-name">Себестоимость</div>
+                <div class="finance-share">15%</div>
+              </div>
+              <div class="finance-value">1,5 млн ₽</div>
+              <div class="finance-text">Базовая закупка товара и производственная часть.</div>
+            </div>
+            <div class="finance-card sky">
+              <div class="finance-top">
+                <div class="finance-name">Логистика</div>
+                <div class="finance-share">15%</div>
+              </div>
+              <div class="finance-value">1,5 млн ₽</div>
+              <div class="finance-text">Доставка, перемещение и вся логистическая нагрузка.</div>
+            </div>
+            <div class="finance-card ink">
+              <div class="finance-top">
+                <div class="finance-name">Комиссии Wildberries</div>
+                <div class="finance-share">25%</div>
+              </div>
+              <div class="finance-value">2,5 млн ₽</div>
+              <div class="finance-text">Самый тяжелый слой экономики в текущей модели.</div>
+            </div>
+            <div class="finance-card rose">
+              <div class="finance-top">
+                <div class="finance-name">Операционные расходы</div>
+                <div class="finance-share">17,5%</div>
+              </div>
+              <div class="finance-value">1,752 млн ₽</div>
+              <div class="finance-text">Реклама, команда, хранение, сервисы, налоги и управление.</div>
+            </div>
+            <div class="finance-card green">
+              <div class="finance-top">
+                <div class="finance-name">Операционная прибыль</div>
+                <div class="finance-share">24,5%</div>
+              </div>
+              <div class="finance-value">2,448 млн ₽</div>
+              <div class="finance-text">То, что остается после всех расходов при обороте 10 млн ₽.</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="pnl-summary">
+            <div class="summary-row total">
+              <strong>Выручка</strong>
+              <strong>10 000 000 ₽</strong>
+            </div>
+            <div class="summary-row total">
+              <strong>Валовая прибыль</strong>
+              <strong>4 200 000 ₽</strong>
+            </div>
+            <div class="summary-row">
+              <span>Операционные расходы</span>
+              <span>1 752 000 ₽</span>
+            </div>
+            <div class="summary-row total" style="color: var(--green);">
+              <strong>Операционная прибыль</strong>
+              <strong>2 448 000 ₽</strong>
+            </div>
+          </div>
+
+          <details class="pnl-details">
+            <summary>
+              <div class="summary-head">
+                <div class="summary-title">Раскрыть детализацию ОПиУ</div>
+                <div class="summary-text">Сначала видно главное. Ниже раскрывается полная структура расходов.</div>
+              </div>
+            </summary>
+
+            <div class="summary-section">
+              <div class="summary-caption">Переменные расходы</div>
+              <div class="summary-card">
+                <div class="summary-row">
+                  <span>Себестоимость</span>
+                  <span>1 500 000 ₽</span>
+                </div>
+                <div class="summary-row">
+                  <span>Логистика</span>
+                  <span>1 500 000 ₽</span>
+                </div>
+                <div class="summary-row">
+                  <span>Комиссии Wildberries</span>
+                  <span>2 500 000 ₽</span>
+                </div>
+                <div class="summary-row">
+                  <span>Другое</span>
+                  <span>300 000 ₽</span>
+                </div>
+                <div class="summary-row total">
+                  <strong>Итого переменные</strong>
+                  <strong>5 800 000 ₽</strong>
+                </div>
+              </div>
+
+              <div class="summary-caption">Операционные расходы</div>
+              <div class="summary-card">
+                <div class="summary-row">
+                  <span>Офис</span>
+                  <span>17 000 ₽</span>
+                </div>
+                <div class="summary-row">
+                  <span>Зарплата упаковщиц</span>
+                  <span>100 000 ₽</span>
+                </div>
+                <div class="summary-row">
+                  <span>Реклама</span>
+                  <span>800 000 ₽</span>
+                </div>
+                <div class="summary-row">
+                  <span>Хранение</span>
+                  <span>100 000 ₽</span>
+                </div>
+                <div class="summary-row">
+                  <span>Сервисы аналитики</span>
+                  <span>35 000 ₽</span>
+                </div>
+                <div class="summary-row">
+                  <span>Бухгалтерия</span>
+                  <span>50 000 ₽</span>
+                </div>
+                <div class="summary-row">
+                  <span>Нейросети</span>
+                  <span>30 000 ₽</span>
+                </div>
+                <div class="summary-row">
+                  <span>Зарплата управленца</span>
+                  <span>120 000 ₽</span>
+                </div>
+                <div class="summary-row">
+                  <span>Налоги</span>
+                  <span>500 000 ₽</span>
+                </div>
+                <div class="summary-row total">
+                  <strong>Итого операционные</strong>
+                  <strong>1 752 000 ₽</strong>
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="footer">
+      <strong>Суть:</strong> это не просто еще один магазин. Это единая система, которая находит новые ниши, быстро их проверяет, масштабирует сильные товары и одновременно улучшает Trenz.
+    </section>
+  </div>
+</body>
+</html>
